@@ -1,6 +1,6 @@
 title: LOLGlobs
 description: "Process execution through wildcard pattern evasion — a catalog of glob-based command obfuscation techniques for Linux, macOS, Windows CMD, and PowerShell."
-baseurl: ""
+baseurl: "/LOLGlobs"
 url: "https://0xv1n.github.io/LOLGlobs"
 
 collections:
