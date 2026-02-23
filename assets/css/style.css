@@ -608,7 +608,11 @@ img, svg { display: block; }
 
 /* Pattern cell */
 .pattern-cell {
-  width: 38%;
+  width: 48%;
+  min-width: 260px;
+}
+
+.pattern-code-wrap {
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -618,9 +622,12 @@ img, svg { display: block; }
   font-family: var(--mono);
   font-size: 0.875rem;
   color: var(--text);
-  line-height: 1.5;
-  word-break: break-all;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
   flex: 1;
+  display: block;
 }
 
 /* Wildcard character highlighting */
@@ -652,7 +659,7 @@ img, svg { display: block; }
   margin-top: 1px;
 }
 
-.pattern-cell:hover .copy-btn,
+.pattern-code-wrap:hover .copy-btn,
 .copy-btn:focus { opacity: 1; }
 
 .copy-btn:hover {
@@ -668,8 +675,9 @@ img, svg { display: block; }
 
 /* Wildcards cell */
 .wildcards-cell {
-  width: 14%;
+  width: 10%;
   vertical-align: top;
+  white-space: nowrap;
 }
 
 .wildcard-badge {
@@ -687,7 +695,7 @@ img, svg { display: block; }
 
 /* Notes cell */
 .notes-cell {
-  width: 48%;
+  width: 42%;
   color: var(--text-muted);
   font-size: 0.875rem;
   line-height: 1.5;

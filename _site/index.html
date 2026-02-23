@@ -9,14 +9,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css">
-<link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg">
+<link rel="stylesheet" href="/LOLGlobs/assets/css/style.css">
+<link rel="icon" type="image/svg+xml" href="/LOLGlobs/assets/images/logo.svg">
 
 </head>
 <body>
   <nav class="site-nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo">
+    <a href="/LOLGlobs/" class="nav-logo">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="28" height="28" rx="6" fill="#161b22"/>
         <text x="3" y="21" font-family="'JetBrains Mono', monospace" font-size="17" font-weight="700" fill="#3fb950">*</text>
@@ -25,9 +25,9 @@
       <span class="nav-title">LOLGlobs</span>
     </a>
     <div class="nav-links">
-      <a href="/" class="active">Catalog</a>
-      <a href="/about" >About</a>
-      <a href="/api/entries.json" target="_blank">API</a>
+      <a href="/LOLGlobs/" class="active">Catalog</a>
+      <a href="/LOLGlobs/about" >About</a>
+      <a href="/LOLGlobs/api/entries.json" target="_blank">API</a>
       <a href="https://github.com/0xv1n/LOLGlobs" target="_blank" class="nav-github">
         <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
           <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
@@ -133,9 +133,9 @@
             data-category="exfiltration"
             data-mitre="T1020"
             data-desc="copy files and directories. used for staging payloads, copying sensitive data for exfiltration, or lateral file movement."
-            onclick="window.location='/globs/powershell/copy-item/'">
+            onclick="window.location='/LOLGlobs/globs/powershell/copy-item/'">
           <td class="col-name">
-            <a href="/globs/powershell/copy-item/" class="entry-link" onclick="event.stopPropagation()">Copy-Item</a>
+            <a href="/LOLGlobs/globs/powershell/copy-item/" class="entry-link" onclick="event.stopPropagation()">Copy-Item</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-powershell">
@@ -162,9 +162,9 @@
             data-category="discovery"
             data-mitre="T1083"
             data-desc="read file contents. equivalent to cat on linux. used to read sensitive files, credentials, and configuration data."
-            onclick="window.location='/globs/powershell/get-content/'">
+            onclick="window.location='/LOLGlobs/globs/powershell/get-content/'">
           <td class="col-name">
-            <a href="/globs/powershell/get-content/" class="entry-link" onclick="event.stopPropagation()">Get-Content</a>
+            <a href="/LOLGlobs/globs/powershell/get-content/" class="entry-link" onclick="event.stopPropagation()">Get-Content</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-powershell">
@@ -191,9 +191,9 @@
             data-category="lateral-movement"
             data-mitre="T1021.006"
             data-desc="run commands on local or remote computers. enables lateral movement via powershell remoting (winrm)."
-            onclick="window.location='/globs/powershell/invoke-command/'">
+            onclick="window.location='/LOLGlobs/globs/powershell/invoke-command/'">
           <td class="col-name">
-            <a href="/globs/powershell/invoke-command/" class="entry-link" onclick="event.stopPropagation()">Invoke-Command</a>
+            <a href="/LOLGlobs/globs/powershell/invoke-command/" class="entry-link" onclick="event.stopPropagation()">Invoke-Command</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-powershell">
@@ -220,9 +220,9 @@
             data-category="execution"
             data-mitre="T1059.001"
             data-desc="execute arbitrary strings as powershell commands. the most direct code execution primitive — equivalent to eval()."
-            onclick="window.location='/globs/powershell/invoke-expression/'">
+            onclick="window.location='/LOLGlobs/globs/powershell/invoke-expression/'">
           <td class="col-name">
-            <a href="/globs/powershell/invoke-expression/" class="entry-link" onclick="event.stopPropagation()">Invoke-Expression</a>
+            <a href="/LOLGlobs/globs/powershell/invoke-expression/" class="entry-link" onclick="event.stopPropagation()">Invoke-Expression</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-powershell">
@@ -249,9 +249,9 @@
             data-category="download"
             data-mitre="T1105"
             data-desc="send http/https requests and receive structured responses. used for c2 communication, api interactions, and payload retrieval."
-            onclick="window.location='/globs/powershell/invoke-restmethod/'">
+            onclick="window.location='/LOLGlobs/globs/powershell/invoke-restmethod/'">
           <td class="col-name">
-            <a href="/globs/powershell/invoke-restmethod/" class="entry-link" onclick="event.stopPropagation()">Invoke-RestMethod</a>
+            <a href="/LOLGlobs/globs/powershell/invoke-restmethod/" class="entry-link" onclick="event.stopPropagation()">Invoke-RestMethod</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-powershell">
@@ -278,9 +278,9 @@
             data-category="download"
             data-mitre="T1105"
             data-desc="download files or interact with web services. powershell's built-in http client, commonly used for payload staging."
-            onclick="window.location='/globs/powershell/invoke-webrequest/'">
+            onclick="window.location='/LOLGlobs/globs/powershell/invoke-webrequest/'">
           <td class="col-name">
-            <a href="/globs/powershell/invoke-webrequest/" class="entry-link" onclick="event.stopPropagation()">Invoke-WebRequest</a>
+            <a href="/LOLGlobs/globs/powershell/invoke-webrequest/" class="entry-link" onclick="event.stopPropagation()">Invoke-WebRequest</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-powershell">
@@ -307,9 +307,9 @@
             data-category="download"
             data-mitre="T1105"
             data-desc="creates .net or com objects. used to instantiate webclient for downloads, create com shells, or access windows apis."
-            onclick="window.location='/globs/powershell/new-object/'">
+            onclick="window.location='/LOLGlobs/globs/powershell/new-object/'">
           <td class="col-name">
-            <a href="/globs/powershell/new-object/" class="entry-link" onclick="event.stopPropagation()">New-Object</a>
+            <a href="/LOLGlobs/globs/powershell/new-object/" class="entry-link" onclick="event.stopPropagation()">New-Object</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-powershell">
@@ -336,9 +336,9 @@
             data-category="persistence"
             data-mitre="T1105"
             data-desc="write content to a file. used to write payloads, modify system files, or create persistence artifacts."
-            onclick="window.location='/globs/powershell/set-content/'">
+            onclick="window.location='/LOLGlobs/globs/powershell/set-content/'">
           <td class="col-name">
-            <a href="/globs/powershell/set-content/" class="entry-link" onclick="event.stopPropagation()">Set-Content</a>
+            <a href="/LOLGlobs/globs/powershell/set-content/" class="entry-link" onclick="event.stopPropagation()">Set-Content</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-powershell">
@@ -365,9 +365,9 @@
             data-category="execution"
             data-mitre="T1059.001"
             data-desc="start one or more processes. can launch executables with specific arguments, working directories, and window styles."
-            onclick="window.location='/globs/powershell/start-process/'">
+            onclick="window.location='/LOLGlobs/globs/powershell/start-process/'">
           <td class="col-name">
-            <a href="/globs/powershell/start-process/" class="entry-link" onclick="event.stopPropagation()">Start-Process</a>
+            <a href="/LOLGlobs/globs/powershell/start-process/" class="entry-link" onclick="event.stopPropagation()">Start-Process</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-powershell">
@@ -394,9 +394,9 @@
             data-category="reconnaissance"
             data-mitre="T1018"
             data-desc="send icmp echo requests (ping). used for host discovery and network reconnaissance within powershell scripts."
-            onclick="window.location='/globs/powershell/test-connection/'">
+            onclick="window.location='/LOLGlobs/globs/powershell/test-connection/'">
           <td class="col-name">
-            <a href="/globs/powershell/test-connection/" class="entry-link" onclick="event.stopPropagation()">Test-Connection</a>
+            <a href="/LOLGlobs/globs/powershell/test-connection/" class="entry-link" onclick="event.stopPropagation()">Test-Connection</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-powershell">
@@ -423,9 +423,9 @@
             data-category="execution"
             data-mitre="T1059"
             data-desc="text processing utility. can be used to extract credential data, process file contents, or execute system commands via system() calls."
-            onclick="window.location='/globs/linux/awk/'">
+            onclick="window.location='/LOLGlobs/globs/linux/awk/'">
           <td class="col-name">
-            <a href="/globs/linux/awk/" class="entry-link" onclick="event.stopPropagation()">awk</a>
+            <a href="/LOLGlobs/globs/linux/awk/" class="entry-link" onclick="event.stopPropagation()">awk</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -452,9 +452,9 @@
             data-category="execution"
             data-mitre="T1059.004"
             data-desc="gnu bourne again shell. executing bash with -i or -c allows spawning interactive shells or running commands, commonly used in reverse shells."
-            onclick="window.location='/globs/linux/bash/'">
+            onclick="window.location='/LOLGlobs/globs/linux/bash/'">
           <td class="col-name">
-            <a href="/globs/linux/bash/" class="entry-link" onclick="event.stopPropagation()">bash</a>
+            <a href="/LOLGlobs/globs/linux/bash/" class="entry-link" onclick="event.stopPropagation()">bash</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -481,9 +481,9 @@
             data-category="download"
             data-mitre="T1197"
             data-desc="background intelligent transfer service admin tool. can download or upload files using bits jobs, bypassing some network controls."
-            onclick="window.location='/globs/windows-cmd/bitsadmin/'">
+            onclick="window.location='/LOLGlobs/globs/windows-cmd/bitsadmin/'">
           <td class="col-name">
-            <a href="/globs/windows-cmd/bitsadmin/" class="entry-link" onclick="event.stopPropagation()">bitsadmin</a>
+            <a href="/LOLGlobs/globs/windows-cmd/bitsadmin/" class="entry-link" onclick="event.stopPropagation()">bitsadmin</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-windows-cmd">
@@ -510,9 +510,9 @@
             data-category="discovery"
             data-mitre="T1083"
             data-desc="concatenate and display file contents. used for reading sensitive files like /etc/passwd, /etc/shadow, ssh keys, and configuration files."
-            onclick="window.location='/globs/linux/cat/'">
+            onclick="window.location='/LOLGlobs/globs/linux/cat/'">
           <td class="col-name">
-            <a href="/globs/linux/cat/" class="entry-link" onclick="event.stopPropagation()">cat</a>
+            <a href="/LOLGlobs/globs/linux/cat/" class="entry-link" onclick="event.stopPropagation()">cat</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -539,9 +539,9 @@
             data-category="download"
             data-mitre="T1105"
             data-desc="certificate management utility. widely abused for base64 encoding/decoding and downloading files from the internet."
-            onclick="window.location='/globs/windows-cmd/certutil/'">
+            onclick="window.location='/LOLGlobs/globs/windows-cmd/certutil/'">
           <td class="col-name">
-            <a href="/globs/windows-cmd/certutil/" class="entry-link" onclick="event.stopPropagation()">certutil</a>
+            <a href="/LOLGlobs/globs/windows-cmd/certutil/" class="entry-link" onclick="event.stopPropagation()">certutil</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-windows-cmd">
@@ -568,9 +568,9 @@
             data-category="execution"
             data-mitre="T1222.002"
             data-desc="change file permissions. used post-exploitation to make dropped payloads executable."
-            onclick="window.location='/globs/linux/chmod/'">
+            onclick="window.location='/LOLGlobs/globs/linux/chmod/'">
           <td class="col-name">
-            <a href="/globs/linux/chmod/" class="entry-link" onclick="event.stopPropagation()">chmod</a>
+            <a href="/LOLGlobs/globs/linux/chmod/" class="entry-link" onclick="event.stopPropagation()">chmod</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -597,9 +597,9 @@
             data-category="persistence"
             data-mitre="T1222.002"
             data-desc="change file owner and group. used to reassign ownership of files, directories, or setuid binaries."
-            onclick="window.location='/globs/linux/chown/'">
+            onclick="window.location='/LOLGlobs/globs/linux/chown/'">
           <td class="col-name">
-            <a href="/globs/linux/chown/" class="entry-link" onclick="event.stopPropagation()">chown</a>
+            <a href="/LOLGlobs/globs/linux/chown/" class="entry-link" onclick="event.stopPropagation()">chown</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -626,9 +626,9 @@
             data-category="execution"
             data-mitre="T1059.003"
             data-desc="windows command processor. spawning cmd.exe is a common technique for executing commands, creating shells, and chaining operations."
-            onclick="window.location='/globs/windows-cmd/cmd/'">
+            onclick="window.location='/LOLGlobs/globs/windows-cmd/cmd/'">
           <td class="col-name">
-            <a href="/globs/windows-cmd/cmd/" class="entry-link" onclick="event.stopPropagation()">cmd</a>
+            <a href="/LOLGlobs/globs/windows-cmd/cmd/" class="entry-link" onclick="event.stopPropagation()">cmd</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-windows-cmd">
@@ -655,9 +655,9 @@
             data-category="download"
             data-mitre="T1105"
             data-desc="transfer data to or from a server. commonly used for downloading payloads, exfiltration, and c2 communication."
-            onclick="window.location='/globs/linux/curl/'">
+            onclick="window.location='/LOLGlobs/globs/linux/curl/'">
           <td class="col-name">
-            <a href="/globs/linux/curl/" class="entry-link" onclick="event.stopPropagation()">curl</a>
+            <a href="/LOLGlobs/globs/linux/curl/" class="entry-link" onclick="event.stopPropagation()">curl</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -684,9 +684,9 @@
             data-category="download"
             data-mitre="T1105"
             data-desc="transfer data from servers. macos ships with curl by default. used for c2, payload download, and exfiltration."
-            onclick="window.location='/globs/macos/curl/'">
+            onclick="window.location='/LOLGlobs/globs/macos/curl/'">
           <td class="col-name">
-            <a href="/globs/macos/curl/" class="entry-link" onclick="event.stopPropagation()">curl</a>
+            <a href="/LOLGlobs/globs/macos/curl/" class="entry-link" onclick="event.stopPropagation()">curl</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-macos">
@@ -713,9 +713,9 @@
             data-category="discovery"
             data-mitre="T1083"
             data-desc="search for files in directory hierarchy. pivotal for discovery — finding suid binaries, writable directories, config files with credentials, and more."
-            onclick="window.location='/globs/linux/find/'">
+            onclick="window.location='/LOLGlobs/globs/linux/find/'">
           <td class="col-name">
-            <a href="/globs/linux/find/" class="entry-link" onclick="event.stopPropagation()">find</a>
+            <a href="/LOLGlobs/globs/linux/find/" class="entry-link" onclick="event.stopPropagation()">find</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -742,9 +742,9 @@
             data-category="discovery"
             data-mitre="T1033"
             data-desc="print user and group information. confirms current user uid, gid, and group memberships for privilege assessment."
-            onclick="window.location='/globs/linux/id/'">
+            onclick="window.location='/LOLGlobs/globs/linux/id/'">
           <td class="col-name">
-            <a href="/globs/linux/id/" class="entry-link" onclick="event.stopPropagation()">id</a>
+            <a href="/LOLGlobs/globs/linux/id/" class="entry-link" onclick="event.stopPropagation()">id</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -771,9 +771,9 @@
             data-category="execution"
             data-mitre="T1218.005"
             data-desc="microsoft html application host. executes hta files or inline vbscript/jscript — commonly used for payload execution and initial access."
-            onclick="window.location='/globs/windows-cmd/mshta/'">
+            onclick="window.location='/LOLGlobs/globs/windows-cmd/mshta/'">
           <td class="col-name">
-            <a href="/globs/windows-cmd/mshta/" class="entry-link" onclick="event.stopPropagation()">mshta</a>
+            <a href="/LOLGlobs/globs/windows-cmd/mshta/" class="entry-link" onclick="event.stopPropagation()">mshta</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-windows-cmd">
@@ -800,9 +800,9 @@
             data-category="execution"
             data-mitre="T1059.004"
             data-desc="netcat — the tcp/ip swiss army knife. used for port scanning, reverse shells, file transfers, and network pivoting."
-            onclick="window.location='/globs/linux/nc/'">
+            onclick="window.location='/LOLGlobs/globs/linux/nc/'">
           <td class="col-name">
-            <a href="/globs/linux/nc/" class="entry-link" onclick="event.stopPropagation()">nc</a>
+            <a href="/LOLGlobs/globs/linux/nc/" class="entry-link" onclick="event.stopPropagation()">nc</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -829,9 +829,9 @@
             data-category="reconnaissance"
             data-mitre="T1046"
             data-desc="network mapper and port scanner. used for network reconnaissance, host discovery, service enumeration, and os detection."
-            onclick="window.location='/globs/linux/nmap/'">
+            onclick="window.location='/LOLGlobs/globs/linux/nmap/'">
           <td class="col-name">
-            <a href="/globs/linux/nmap/" class="entry-link" onclick="event.stopPropagation()">nmap</a>
+            <a href="/LOLGlobs/globs/linux/nmap/" class="entry-link" onclick="event.stopPropagation()">nmap</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -858,9 +858,9 @@
             data-category="execution"
             data-mitre="T1059.002"
             data-desc="open files, urls, or applications. can launch applications, execute scripts via -a flag, or open urls that trigger protocol handlers."
-            onclick="window.location='/globs/macos/open/'">
+            onclick="window.location='/LOLGlobs/globs/macos/open/'">
           <td class="col-name">
-            <a href="/globs/macos/open/" class="entry-link" onclick="event.stopPropagation()">open</a>
+            <a href="/LOLGlobs/globs/macos/open/" class="entry-link" onclick="event.stopPropagation()">open</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-macos">
@@ -887,9 +887,9 @@
             data-category="execution"
             data-mitre="T1059.002"
             data-desc="execute applescript or javascript for automation (jxa). can control applications, access keychain, display prompts, and run system commands."
-            onclick="window.location='/globs/macos/osascript/'">
+            onclick="window.location='/LOLGlobs/globs/macos/osascript/'">
           <td class="col-name">
-            <a href="/globs/macos/osascript/" class="entry-link" onclick="event.stopPropagation()">osascript</a>
+            <a href="/LOLGlobs/globs/macos/osascript/" class="entry-link" onclick="event.stopPropagation()">osascript</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-macos">
@@ -916,9 +916,9 @@
             data-category="execution"
             data-mitre="T1059"
             data-desc="perl interpreter. supports arbitrary code execution, file i/o, network operations — useful for one-liner payloads and reverse shells."
-            onclick="window.location='/globs/linux/perl/'">
+            onclick="window.location='/LOLGlobs/globs/linux/perl/'">
           <td class="col-name">
-            <a href="/globs/linux/perl/" class="entry-link" onclick="event.stopPropagation()">perl</a>
+            <a href="/LOLGlobs/globs/linux/perl/" class="entry-link" onclick="event.stopPropagation()">perl</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -945,9 +945,9 @@
             data-category="execution"
             data-mitre="T1059.001"
             data-desc="powershell executable launched from cmd. bypasses cmd-level restrictions by delegating to powershell runtime."
-            onclick="window.location='/globs/windows-cmd/powershell-exe/'">
+            onclick="window.location='/LOLGlobs/globs/windows-cmd/powershell-exe/'">
           <td class="col-name">
-            <a href="/globs/windows-cmd/powershell-exe/" class="entry-link" onclick="event.stopPropagation()">powershell.exe</a>
+            <a href="/LOLGlobs/globs/windows-cmd/powershell-exe/" class="entry-link" onclick="event.stopPropagation()">powershell.exe</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-windows-cmd">
@@ -974,9 +974,9 @@
             data-category="execution"
             data-mitre="T1059.006"
             data-desc="python 3 interpreter. enables arbitrary code execution, file operations, network connections, and more."
-            onclick="window.location='/globs/linux/python3/'">
+            onclick="window.location='/LOLGlobs/globs/linux/python3/'">
           <td class="col-name">
-            <a href="/globs/linux/python3/" class="entry-link" onclick="event.stopPropagation()">python3</a>
+            <a href="/LOLGlobs/globs/linux/python3/" class="entry-link" onclick="event.stopPropagation()">python3</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -1003,9 +1003,9 @@
             data-category="execution"
             data-mitre="T1059.006"
             data-desc="python 3 interpreter on macos. available via xcode cli tools or homebrew. enables arbitrary code execution and network operations."
-            onclick="window.location='/globs/macos/python3/'">
+            onclick="window.location='/LOLGlobs/globs/macos/python3/'">
           <td class="col-name">
-            <a href="/globs/macos/python3/" class="entry-link" onclick="event.stopPropagation()">python3</a>
+            <a href="/LOLGlobs/globs/macos/python3/" class="entry-link" onclick="event.stopPropagation()">python3</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-macos">
@@ -1032,9 +1032,9 @@
             data-category="execution"
             data-mitre="T1218.010"
             data-desc="registers and unregisters ole controls. can execute remote scriptlets (scrobj.dll) — the 'squiblydoo' technique."
-            onclick="window.location='/globs/windows-cmd/regsvr32/'">
+            onclick="window.location='/LOLGlobs/globs/windows-cmd/regsvr32/'">
           <td class="col-name">
-            <a href="/globs/windows-cmd/regsvr32/" class="entry-link" onclick="event.stopPropagation()">regsvr32</a>
+            <a href="/LOLGlobs/globs/windows-cmd/regsvr32/" class="entry-link" onclick="event.stopPropagation()">regsvr32</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-windows-cmd">
@@ -1061,9 +1061,9 @@
             data-category="exfiltration"
             data-mitre="T1048"
             data-desc="fast, versatile file copying tool. supports remote file sync over ssh — useful for exfiltration, payload staging, and lateral file movement."
-            onclick="window.location='/globs/linux/rsync/'">
+            onclick="window.location='/LOLGlobs/globs/linux/rsync/'">
           <td class="col-name">
-            <a href="/globs/linux/rsync/" class="entry-link" onclick="event.stopPropagation()">rsync</a>
+            <a href="/LOLGlobs/globs/linux/rsync/" class="entry-link" onclick="event.stopPropagation()">rsync</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -1090,9 +1090,9 @@
             data-category="execution"
             data-mitre="T1059"
             data-desc="ruby interpreter. can be used for arbitrary code execution, reverse shells, and file operations."
-            onclick="window.location='/globs/linux/ruby/'">
+            onclick="window.location='/LOLGlobs/globs/linux/ruby/'">
           <td class="col-name">
-            <a href="/globs/linux/ruby/" class="entry-link" onclick="event.stopPropagation()">ruby</a>
+            <a href="/LOLGlobs/globs/linux/ruby/" class="entry-link" onclick="event.stopPropagation()">ruby</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -1119,9 +1119,9 @@
             data-category="execution"
             data-mitre="T1218.011"
             data-desc="loads and runs dlls. used to execute malicious dll exports directly, bypassing application whitelisting."
-            onclick="window.location='/globs/windows-cmd/rundll32/'">
+            onclick="window.location='/LOLGlobs/globs/windows-cmd/rundll32/'">
           <td class="col-name">
-            <a href="/globs/windows-cmd/rundll32/" class="entry-link" onclick="event.stopPropagation()">rundll32</a>
+            <a href="/LOLGlobs/globs/windows-cmd/rundll32/" class="entry-link" onclick="event.stopPropagation()">rundll32</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-windows-cmd">
@@ -1148,9 +1148,9 @@
             data-category="exfiltration"
             data-mitre="T1048.002"
             data-desc="secure copy protocol. used for file transfer between hosts over ssh — exfiltration, payload staging, or lateral file movement."
-            onclick="window.location='/globs/linux/scp/'">
+            onclick="window.location='/LOLGlobs/globs/linux/scp/'">
           <td class="col-name">
-            <a href="/globs/linux/scp/" class="entry-link" onclick="event.stopPropagation()">scp</a>
+            <a href="/LOLGlobs/globs/linux/scp/" class="entry-link" onclick="event.stopPropagation()">scp</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -1177,9 +1177,9 @@
             data-category="execution"
             data-mitre="T1059"
             data-desc="stream editor for filtering and transforming text. can read arbitrary files, extract credentials from configs, or serve as a code execution vector via -e flag."
-            onclick="window.location='/globs/linux/sed/'">
+            onclick="window.location='/LOLGlobs/globs/linux/sed/'">
           <td class="col-name">
-            <a href="/globs/linux/sed/" class="entry-link" onclick="event.stopPropagation()">sed</a>
+            <a href="/LOLGlobs/globs/linux/sed/" class="entry-link" onclick="event.stopPropagation()">sed</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -1206,9 +1206,9 @@
             data-category="execution"
             data-mitre="T1059"
             data-desc="multipurpose relay tool. more powerful than netcat — supports ssl, udp, and complex socket operations. commonly used for encrypted reverse shells and port forwarding."
-            onclick="window.location='/globs/linux/socat/'">
+            onclick="window.location='/LOLGlobs/globs/linux/socat/'">
           <td class="col-name">
-            <a href="/globs/linux/socat/" class="entry-link" onclick="event.stopPropagation()">socat</a>
+            <a href="/LOLGlobs/globs/linux/socat/" class="entry-link" onclick="event.stopPropagation()">socat</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -1235,9 +1235,9 @@
             data-category="lateral-movement"
             data-mitre="T1021.004"
             data-desc="secure shell client. used for lateral movement, remote command execution, tunneling, and persistence via authorized_keys."
-            onclick="window.location='/globs/linux/ssh/'">
+            onclick="window.location='/LOLGlobs/globs/linux/ssh/'">
           <td class="col-name">
-            <a href="/globs/linux/ssh/" class="entry-link" onclick="event.stopPropagation()">ssh</a>
+            <a href="/LOLGlobs/globs/linux/ssh/" class="entry-link" onclick="event.stopPropagation()">ssh</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -1264,9 +1264,9 @@
             data-category="exfiltration"
             data-mitre="T1560.001"
             data-desc="archive utility. used to compress and exfiltrate data, or extract attacker-controlled archives that may include path traversal payloads."
-            onclick="window.location='/globs/linux/tar/'">
+            onclick="window.location='/LOLGlobs/globs/linux/tar/'">
           <td class="col-name">
-            <a href="/globs/linux/tar/" class="entry-link" onclick="event.stopPropagation()">tar</a>
+            <a href="/LOLGlobs/globs/linux/tar/" class="entry-link" onclick="event.stopPropagation()">tar</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -1293,9 +1293,9 @@
             data-category="download"
             data-mitre="T1105"
             data-desc="non-interactive network downloader. used to fetch files from http/ftp servers, download payloads, or stage tools."
-            onclick="window.location='/globs/linux/wget/'">
+            onclick="window.location='/LOLGlobs/globs/linux/wget/'">
           <td class="col-name">
-            <a href="/globs/linux/wget/" class="entry-link" onclick="event.stopPropagation()">wget</a>
+            <a href="/LOLGlobs/globs/linux/wget/" class="entry-link" onclick="event.stopPropagation()">wget</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -1322,9 +1322,9 @@
             data-category="discovery"
             data-mitre="T1033"
             data-desc="prints the current user's username. useful for confirming privilege level after exploitation."
-            onclick="window.location='/globs/linux/whoami/'">
+            onclick="window.location='/LOLGlobs/globs/linux/whoami/'">
           <td class="col-name">
-            <a href="/globs/linux/whoami/" class="entry-link" onclick="event.stopPropagation()">whoami</a>
+            <a href="/LOLGlobs/globs/linux/whoami/" class="entry-link" onclick="event.stopPropagation()">whoami</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-linux">
@@ -1351,9 +1351,9 @@
             data-category="execution"
             data-mitre="T1047"
             data-desc="wmi command-line interface. used for system information gathering, remote execution, process creation, and persistence."
-            onclick="window.location='/globs/windows-cmd/wmic/'">
+            onclick="window.location='/LOLGlobs/globs/windows-cmd/wmic/'">
           <td class="col-name">
-            <a href="/globs/windows-cmd/wmic/" class="entry-link" onclick="event.stopPropagation()">wmic</a>
+            <a href="/LOLGlobs/globs/windows-cmd/wmic/" class="entry-link" onclick="event.stopPropagation()">wmic</a>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-windows-cmd">
@@ -1403,8 +1403,8 @@ window.LOLGLOB_ENTRIES = Array.from(document.querySelectorAll('#catalog-tbody .e
     </div>
     <div class="footer-links">
       <a href="https://github.com/0xv1n/LOLGlobs/issues/new?template=new-entry.yml" target="_blank">Submit Entry</a>
-      <a href="/about">About</a>
-      <a href="/api/entries.json">API</a>
+      <a href="/LOLGlobs/about">About</a>
+      <a href="/LOLGlobs/api/entries.json">API</a>
       <a href="https://github.com/0xv1n/LOLGlobs" target="_blank">GitHub</a>
     </div>
     <div class="footer-right">
@@ -1414,7 +1414,7 @@ window.LOLGLOB_ENTRIES = Array.from(document.querySelectorAll('#catalog-tbody .e
 </footer>
 
   
-  <script src="/assets/js/search.js"></script>
+  <script src="/LOLGlobs/assets/js/search.js"></script>
   
 </body>
 </html>
