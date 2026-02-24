@@ -1,0 +1,78 @@
+name: Validate Entries
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  schema:
+    name: Schema Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run schema validation
+        run: python scripts/validate_schema.py
+
+  globs-linux:
+    name: Glob Resolution (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Install optional binaries (nmap, socat, ncat)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq nmap socat ncat
+
+      - name: Run glob resolution tests
+        run: python scripts/validate_globs.py --platform linux
+
+  globs-macos:
+    name: Glob Resolution (macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run glob resolution tests
+        run: python scripts/validate_globs.py --platform macos
+
+  globs-windows:
+    name: Glob Resolution (Windows)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run glob resolution tests (CMD)
+        run: python scripts/validate_globs.py --platform windows-cmd
+
+      - name: Run glob resolution tests (PowerShell)
+        run: python scripts/validate_globs.py --platform powershell
