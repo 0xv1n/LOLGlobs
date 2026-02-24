@@ -7,7 +7,7 @@ BinaryPath:
 Category: execution
 MitreID: T1059.001
 Patterns:
-  - Pattern: "& (gcm S*-P*ess) -FilePath cmd.exe"
+  - Pattern: "& (gcm S*a*-P*ess) -FilePath cmd.exe"
     Wildcards: ["*"]
     Notes: "Wildcards in verb and noun"
   - Pattern: "& (gcm Start-Pro*) -FilePath ..."
