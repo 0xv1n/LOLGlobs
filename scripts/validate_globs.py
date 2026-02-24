@@ -169,7 +169,13 @@ def test_windows_cmd(entries):
         name = entry["Name"]
         for i, pat in enumerate(entry.get("Patterns", [])):
             pattern_str = pat.get("Pattern", "")
+            wildcards   = pat.get("Wildcards", [])
             label = f"{name}  pattern[{i}]  {pattern_str!r}"
+
+            if not wildcards:
+                _result("SKIP", label, "no wildcards, alias-style entry")
+                skipped += 1
+                continue
 
             kind, glob_arg = _extract_cmd_glob(pattern_str)
             if kind is None:
