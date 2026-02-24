@@ -35,7 +35,7 @@ Patterns:
   - Pattern: "w[g]et"
     Wildcards: ["[]"]
     Notes: "Bracket class on second char"
-  - Pattern: "wg[et]"
+  - Pattern: "wge[t]"
     Wildcards: ["[]"]
     Notes: "Bracket class matching last two chars (matches any single char in set)"
 Resources:

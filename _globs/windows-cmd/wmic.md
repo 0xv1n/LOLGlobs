@@ -10,9 +10,9 @@ Patterns:
   - Pattern: "for /f %i in ('where wmi?.exe') do %i process call create cmd.exe"
     Wildcards: ["?"]
     Notes: "Wildcard replaces 'c'"
-  - Pattern: "for /f %i in ('where w*c.exe') do %i"
+  - Pattern: "for /f %i in ('where wmi*c.exe') do %i"
     Wildcards: ["*"]
-    Notes: "Star matches 'mi'"
+    Notes: "Star intentionally matches nothing (or variant chars); more specific than w*c.exe to avoid ambiguity with windmc.exe"
   - Pattern: "for /f %i in ('dir /b C:\\Windows\\System32\\wbem\\wmi?.exe') do %i"
     Wildcards: ["?"]
     Notes: "Full path dir glob"
