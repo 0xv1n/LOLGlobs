@@ -248,13 +248,20 @@ def test_windows_cmd(entries):
 
 
 # ── PowerShell ────────────────────────────────────────────────────────────────
-# (gcm Pattern) or (Get-Command Pattern)
+# (gcm/Get-Command Pattern) or (gal/Get-Alias Pattern)
 _PS_GCM_RE = re.compile(r"\(\s*(?:gcm|Get-Command)\s+([^)]+)\)", re.IGNORECASE)
+_PS_GAL_RE = re.compile(r"\(\s*(?:gal|Get-Alias)\s+([^)]+)\)", re.IGNORECASE)
 
 
 def _extract_ps_glob(pattern_str):
+    """Return (kind, glob_arg) where kind is 'gcm' or 'gal', or (None, None)."""
     m = _PS_GCM_RE.search(pattern_str)
-    return m.group(1).strip() if m else None
+    if m:
+        return "gcm", m.group(1).strip()
+    m = _PS_GAL_RE.search(pattern_str)
+    if m:
+        return "gal", m.group(1).strip()
+    return None, None
 
 
 def test_powershell(entries):
@@ -264,7 +271,7 @@ def test_powershell(entries):
         name = entry["Name"]
         for i, pat in enumerate(entry.get("Patterns", [])):
             pattern_str = pat.get("Pattern", "")
-            wildcards = pat.get("Wildcards", [])
+            wildcards   = pat.get("Wildcards", [])
             label = f"{name}  pattern[{i}]  {pattern_str!r}"
 
             if not wildcards:
@@ -272,28 +279,27 @@ def test_powershell(entries):
                 skipped += 1
                 continue
 
-            glob_arg = _extract_ps_glob(pattern_str)
-            if glob_arg is None:
-                _result("SKIP", label, "couldn't parse gcm/Get-Command glob")
+            kind, glob_arg = _extract_ps_glob(pattern_str)
+            if kind is None:
+                _result("SKIP", label, "couldn't parse gcm/Get-Command or gal/Get-Alias glob")
                 skipped += 1
                 continue
 
-            ps_script = (
-                f"Get-Command '{glob_arg}' -ErrorAction SilentlyContinue"
-                f" | Select-Object -ExpandProperty Name"
-            )
+            if kind == "gcm":
+                ps_script = (
+                    f"Get-Command '{glob_arg}' -ErrorAction SilentlyContinue"
+                    f" | Select-Object -ExpandProperty Name"
+                )
+            else:  # gal — resolve alias to its target cmdlet name
+                ps_script = (
+                    f"Get-Alias '{glob_arg}' -ErrorAction SilentlyContinue"
+                    f" | Select-Object -ExpandProperty Definition"
+                )
+
             try:
                 proc = subprocess.run(
-                    [
-                        "powershell",
-                        "-NoProfile",
-                        "-NonInteractive",
-                        "-Command",
-                        ps_script,
-                    ],
-                    capture_output=True,
-                    text=True,
-                    timeout=30,
+                    ["powershell", "-NoProfile", "-NonInteractive", "-Command", ps_script],
+                    capture_output=True, text=True, timeout=30,
                 )
                 output = proc.stdout.strip()
             except FileNotFoundError:
@@ -306,11 +312,12 @@ def test_powershell(entries):
                 continue
 
             if not output:
-                _result(
-                    "SKIP",
-                    label,
-                    "Get-Command returned nothing — cmdlet not available?",
-                )
+                _result("SKIP", label, f"{kind} returned nothing — not available?")
+                skipped += 1
+            elif kind == "gal" and "\n" in output:
+                # Multiple aliases matched — ambiguous, mirrors real-world failure
+                aliases = output.replace("\n", ", ")[:80]
+                _result("SKIP", label, f"gal matched multiple aliases (ambiguous): {aliases}")
                 skipped += 1
             elif name.lower() in output.lower():
                 _result("PASS", label)
