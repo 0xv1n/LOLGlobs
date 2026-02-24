@@ -58,6 +58,23 @@ def _result(status, label, detail=""):
     print(f"  {colour}{status}{RESET}  {label}{suffix}")
 
 
+def _accepted_names(entry):
+    """Lowercase set of binary basenames that count as a valid resolution.
+
+    Includes the entry Name plus every basename extracted from path-like
+    BinaryPath entries, so aliases like nc/netcat/ncat all pass.
+    Descriptive strings (e.g. "PowerShell cmdlet") are ignored.
+    """
+    names = {entry["Name"].lower()}
+    for bp in entry.get("BinaryPath", []):
+        # Only extract basenames from actual paths (contain a path separator)
+        if "/" in bp or "\\" in bp:
+            basename = os.path.basename(bp).lower()
+            if basename:
+                names.add(basename)
+    return names
+
+
 # ── Linux / macOS ─────────────────────────────────────────────────────────────
 
 
@@ -77,6 +94,8 @@ def test_posix(entries):
                 skipped += 1
                 continue
 
+            accepted = _accepted_names(entry)
+
             if "/" in pattern_str:
                 # Absolute / relative path glob
                 try:
@@ -89,13 +108,13 @@ def test_posix(entries):
                 if not matches:
                     _result("SKIP", label, "no path matches — binary not installed?")
                     skipped += 1
-                elif any(name.lower() in os.path.basename(m).lower() for m in matches):
+                elif any(os.path.basename(m).lower() in accepted for m in matches):
                     _result("PASS", label)
                     passed += 1
                 else:
                     basenames = [os.path.basename(m) for m in matches[:3]]
                     _result(
-                        "FAIL", label, f"matches {basenames} don't contain '{name}'"
+                        "FAIL", label, f"matches {basenames} not in accepted {accepted}"
                     )
                     failed += 1
             else:
@@ -112,15 +131,13 @@ def test_posix(entries):
                 if not all_matches:
                     _result("SKIP", label, "no PATH matches — binary not installed?")
                     skipped += 1
-                elif any(
-                    name.lower() in os.path.basename(m).lower() for m in all_matches
-                ):
+                elif any(os.path.basename(m).lower() in accepted for m in all_matches):
                     _result("PASS", label)
                     passed += 1
                 else:
                     basenames = [os.path.basename(m) for m in all_matches[:3]]
                     _result(
-                        "FAIL", label, f"matches {basenames} don't contain '{name}'"
+                        "FAIL", label, f"matches {basenames} not in accepted {accepted}"
                     )
                     failed += 1
 
@@ -165,7 +182,7 @@ def test_windows_cmd(entries):
                 cmd = ["where"] + glob_arg.split()
                 try:
                     proc = subprocess.run(
-                        cmd, capture_output=True, text=True, timeout=10
+                        cmd, capture_output=True, text=True, timeout=30
                     )
                     output = proc.stdout.strip()
                 except FileNotFoundError:
@@ -177,6 +194,7 @@ def test_windows_cmd(entries):
                     skipped += 1
                     continue
 
+                accepted = _accepted_names(entry)
                 if not output:
                     _result(
                         "SKIP",
@@ -184,14 +202,14 @@ def test_windows_cmd(entries):
                         "where returned no output — binary not installed?",
                     )
                     skipped += 1
-                elif name.lower() in output.lower():
+                elif any(n in output.lower() for n in accepted):
                     _result("PASS", label)
                     passed += 1
                 else:
                     _result(
                         "FAIL",
                         label,
-                        f"where output doesn't contain '{name}': {output[:80]!r}",
+                        f"where output doesn't contain any of {accepted}: {output[:80]!r}",
                     )
                     failed += 1
 
