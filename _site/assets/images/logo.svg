@@ -1,5 +1,0 @@
-<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="64" height="64" rx="12" fill="#161b22"/>
-  <text x="6" y="48" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="42" font-weight="700" fill="#3fb950">*</text>
-  <text x="32" y="48" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="42" font-weight="700" fill="#58a6ff">?</text>
-</svg>
