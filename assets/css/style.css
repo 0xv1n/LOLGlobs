@@ -963,3 +963,5 @@ img, svg { display: block; }
   outline: 2px solid var(--accent-green);
   outline-offset: 2px;
 }
+
+.search-input:focus-visible { outline: none; }
