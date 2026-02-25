@@ -22,6 +22,9 @@ Patterns:
   - Pattern: "cp -Path src -Destination dst"
     Wildcards: []
     Notes: "Alias 'cp' for Copy-Item"
+  - Pattern: "cpi -Path src -Destination dst"
+    Wildcards: []
+    Notes: "Alias 'cpi' for Copy-Item"
   - Pattern: "& (gcm *-Item) -Path ..."
     Wildcards: ["*"]
     Notes: "Prefix wildcard — note: matches Get-Item, Set-Item etc."

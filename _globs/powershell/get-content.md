@@ -22,6 +22,9 @@ Patterns:
   - Pattern: "cat C:\\sensitive\\file.txt"
     Wildcards: []
     Notes: "Alias 'cat' also works in PowerShell"
+  - Pattern: "type C:\\sensitive\\file.txt"
+    Wildcards: []
+    Notes: "Alias 'type' also resolves to Get-Content"
   - Pattern: "& (gcm *Content) ..."
     Wildcards: ["*"]
     Notes: "Prefix wildcard"

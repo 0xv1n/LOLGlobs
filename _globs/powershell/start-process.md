@@ -22,6 +22,9 @@ Patterns:
   - Pattern: "saps -FilePath cmd.exe"
     Wildcards: []
     Notes: "Built-in alias 'saps' for Start-Process"
+  - Pattern: "start cmd.exe"
+    Wildcards: []
+    Notes: "Alias 'start' for Start-Process"
   - Pattern: "& (gcm *rocess) cmd.exe"
     Wildcards: ["*"]
     Notes: "Short suffix pattern"
