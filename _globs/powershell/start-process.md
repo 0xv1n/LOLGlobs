@@ -16,6 +16,9 @@ Patterns:
   - Pattern: "& (gcm S?art-Process) -FilePath ..."
     Wildcards: ["?"]
     Notes: "Single char wildcard replaces 't'"
+  - Pattern: "& (gcm S[s-u]art-Process) -FilePath ..."
+    Wildcards: ["[s-u]"]
+    Notes: "Character range matches 't' in Start"
   - Pattern: "& (gcm *-Process) -FilePath ..."
     Wildcards: ["*"]
     Notes: "Prefix wildcard"
@@ -25,6 +28,9 @@ Patterns:
   - Pattern: "start cmd.exe"
     Wildcards: []
     Notes: "Alias 'start' for Start-Process"
+  - Pattern: "& (gal s?ps) cmd.exe"
+    Wildcards: ["?"]
+    Notes: "Get-Alias with wildcard resolves 'saps'"
   - Pattern: "& (gcm *rocess) cmd.exe"
     Wildcards: ["*"]
     Notes: "Short suffix pattern"

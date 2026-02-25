@@ -22,6 +22,12 @@ Patterns:
   - Pattern: "icm -ComputerName TARGET -ScriptBlock { id }"
     Wildcards: []
     Notes: "Built-in alias 'icm'"
+  - Pattern: "& (gcm Invok[d-f]-Command) -ComputerName ..."
+    Wildcards: ["[d-f]"]
+    Notes: "Character range matches 'e' in Invoke"
+  - Pattern: "& (gal ic?) -ComputerName TARGET -ScriptBlock { id }"
+    Wildcards: ["?"]
+    Notes: "Get-Alias with wildcard resolves 'icm'"
 Resources:
   - https://attack.mitre.org/techniques/T1021/006/
   - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/invoke-command

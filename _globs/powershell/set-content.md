@@ -16,6 +16,9 @@ Patterns:
   - Pattern: "& (gcm S?t-Content) -Path ..."
     Wildcards: ["?"]
     Notes: "Single char wildcard replaces 'e'"
+  - Pattern: "& (gcm S[d-f]t-Content) -Path ..."
+    Wildcards: ["[d-f]"]
+    Notes: "Character range matches 'e' in Set"
   - Pattern: "& (gcm *-Content) -Path ..."
     Wildcards: ["*"]
     Notes: "Prefix wildcard — note: also matches Get-Content"

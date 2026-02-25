@@ -22,6 +22,12 @@ Patterns:
   - Pattern: "irm -Uri ..."
     Wildcards: []
     Notes: "Built-in alias 'irm' — not a glob but used in combination"
+  - Pattern: "& (gcm Invok[d-f]-RestMethod) -Uri ..."
+    Wildcards: ["[d-f]"]
+    Notes: "Character range matches 'e' in Invoke"
+  - Pattern: "& (gal ir?) -Uri ..."
+    Wildcards: ["?"]
+    Notes: "Get-Alias with wildcard resolves 'irm'"
   - Pattern: "& (gcm *-Rest*od) -Uri ..."
     Wildcards: ["*"]
     Notes: "Multiple wildcards with partial matching"

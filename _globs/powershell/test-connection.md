@@ -16,6 +16,9 @@ Patterns:
   - Pattern: "& (gcm T?st-Connection) -ComputerName ..."
     Wildcards: ["?"]
     Notes: "Single char wildcard replaces 'e'"
+  - Pattern: "& (gcm T[d-f]st-Connection) -ComputerName ..."
+    Wildcards: ["[d-f]"]
+    Notes: "Character range matches 'e' in Test"
   - Pattern: "& (gcm *Connection) -ComputerName ..."
     Wildcards: ["*"]
     Notes: "Prefix wildcard"

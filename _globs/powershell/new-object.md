@@ -16,6 +16,9 @@ Patterns:
   - Pattern: "& (gcm N?w-Object) System.Net.WebClient"
     Wildcards: ["?"]
     Notes: "Single char wildcard replaces 'e'"
+  - Pattern: "& (gcm N[d-f]w-Object) System.Net.WebClient"
+    Wildcards: ["[d-f]"]
+    Notes: "Character range matches 'e' in New"
   - Pattern: "(& (gcm N*-O*) Net.WebClient).DownloadFile('http://...','C:\\p.exe')"
     Wildcards: ["*"]
     Notes: "Full download one-liner with glob-resolved cmdlet"
