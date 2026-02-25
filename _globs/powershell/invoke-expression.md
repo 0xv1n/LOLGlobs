@@ -13,9 +13,9 @@ Patterns:
   - Pattern: "& (gal i?x) 'whoami'"
     Wildcards: ["?"]
     Notes: "Get-Alias (gal) with wildcard — 'iex' is the alias for Invoke-Expression"
-  - Pattern: "& (gal ?e?) 'whoami'"
+  - Pattern: "& (gal ?ex) 'whoami'"
     Wildcards: ["?"]
-    Notes: "Wildcards around 'e' in 'iex' alias"
+    Notes: "Wildcard prefix on 'iex' alias — uniquely matches iex"
   - Pattern: "iex 'whoami'"
     Wildcards: []
     Notes: "Direct alias use — not a glob but the canonical short form"

@@ -28,9 +28,9 @@ Patterns:
   - Pattern: "cpi -Path src -Destination dst"
     Wildcards: []
     Notes: "Alias 'cpi' for Copy-Item"
-  - Pattern: "& (gal c?i) -Path src -Destination dst"
+  - Pattern: "& (gal cp?) -Path src -Destination dst"
     Wildcards: ["?"]
-    Notes: "Get-Alias with wildcard resolves 'cpi'"
+    Notes: "Get-Alias with wildcard resolves 'cpi' — cp? avoids matching 'cli' (Clear-Item)"
   - Pattern: "& (gcm *-Item) -Path ..."
     Wildcards: ["*"]
     Notes: "Prefix wildcard — note: matches Get-Item, Set-Item etc."

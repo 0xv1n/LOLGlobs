@@ -28,9 +28,9 @@ Patterns:
   - Pattern: "start cmd.exe"
     Wildcards: []
     Notes: "Alias 'start' for Start-Process"
-  - Pattern: "& (gal s?ps) cmd.exe"
+  - Pattern: "& (gal sa?s) cmd.exe"
     Wildcards: ["?"]
-    Notes: "Get-Alias with wildcard resolves 'saps'"
+    Notes: "Get-Alias with wildcard resolves 'saps' — sa?s avoids matching 'spps' (Stop-Process)"
   - Pattern: "& (gcm *rocess) cmd.exe"
     Wildcards: ["*"]
     Notes: "Short suffix pattern"

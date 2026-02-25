@@ -32,6 +32,7 @@ REQUIRED_FIELDS = [
 ]
 REQUIRED_PATTERN_FIELDS = ["Pattern", "Wildcards", "Notes"]
 VALID_WILDCARDS = {"?", "*", "[]"}
+BRACKET_RANGE_RE = re.compile(r"^\[.+\]$")  # [abc], [a-z], [d-f], etc.
 MITRE_RE = re.compile(r"^T\d{4}(\.\d{3})?$")
 
 # Map wildcard label -> character that must appear in the Pattern string
@@ -138,15 +139,16 @@ def validate_entry(filepath, data, valid_platforms, valid_categories, seen):
             continue
 
         for wc in wildcards:
-            # Valid wildcard value?
-            if wc not in VALID_WILDCARDS:
+            # Valid wildcard value? Accepts *, ?, [], or any [X-Y]/[abc] range.
+            is_bracket_range = BRACKET_RANGE_RE.match(wc) is not None
+            if wc not in VALID_WILDCARDS and not is_bracket_range:
                 errors.append(
                     f"{prefix}: Invalid Wildcards value '{wc}' "
-                    f"(valid: {sorted(VALID_WILDCARDS)})"
+                    f"(valid: {sorted(VALID_WILDCARDS)} or bracket ranges like [a-z])"
                 )
                 continue
-            # Char consistency
-            char = WILDCARD_CHARS[wc]
+            # Char consistency: bracket ranges require '[' in pattern
+            char = WILDCARD_CHARS.get(wc, "[")
             if char not in pattern_str:
                 errors.append(
                     f"{prefix}: Wildcard '{wc}' listed but '{char}' "
