@@ -2,11 +2,41 @@ name: Validate Entries
 
 on:
   push:
+    paths: ['_globs/**', 'scripts/**']
   pull_request:
+    paths: ['_globs/**', 'scripts/**']
 
 jobs:
+  detect-changes:
+    name: Detect Changed Platforms
+    runs-on: ubuntu-latest
+    outputs:
+      linux: ${{ steps.filter.outputs.linux }}
+      macos: ${{ steps.filter.outputs.macos }}
+      windows-cmd: ${{ steps.filter.outputs.windows-cmd }}
+      powershell: ${{ steps.filter.outputs.powershell }}
+      scripts: ${{ steps.filter.outputs.scripts }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            linux:
+              - '_globs/linux/**'
+            macos:
+              - '_globs/macos/**'
+            windows-cmd:
+              - '_globs/windows-cmd/**'
+            powershell:
+              - '_globs/powershell/**'
+            scripts:
+              - 'scripts/**'
+
   schema:
     name: Schema Validation
+    needs: detect-changes
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,6 +53,8 @@ jobs:
 
   globs-linux:
     name: Glob Resolution (Linux)
+    needs: detect-changes
+    if: needs.detect-changes.outputs.linux == 'true' || needs.detect-changes.outputs.scripts == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -44,6 +76,8 @@ jobs:
 
   globs-macos:
     name: Glob Resolution (macOS)
+    needs: detect-changes
+    if: needs.detect-changes.outputs.macos == 'true' || needs.detect-changes.outputs.scripts == 'true'
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
@@ -60,6 +94,8 @@ jobs:
 
   globs-windows:
     name: Glob Resolution (Windows)
+    needs: detect-changes
+    if: needs.detect-changes.outputs['windows-cmd'] == 'true' || needs.detect-changes.outputs.powershell == 'true' || needs.detect-changes.outputs.scripts == 'true'
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
