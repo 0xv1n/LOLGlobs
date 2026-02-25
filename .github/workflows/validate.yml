@@ -1,10 +1,10 @@
 name: Validate Entries
 
 on:
-  push:
-    paths: ['_globs/**', 'scripts/**']
   pull_request:
-    paths: ['_globs/**', 'scripts/**']
+    paths:
+      - '_globs/**'
+      - 'scripts/**'
 
 jobs:
   detect-changes:
