@@ -31,7 +31,11 @@ Patterns:
   - Pattern: "& (gcm *-Rest*od) -Uri ..."
     Wildcards: ["*"]
     Notes: "Multiple wildcards with partial matching"
+  - Pattern: "& (DIR Alias:/ir?) -Uri http://..."
+    Wildcards: ["?"]
+    Notes: "Resolves irm alias via PowerShell's Alias: PSDrive glob"
 Resources:
   - https://attack.mitre.org/techniques/T1105/
   - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod
+  - https://gist.github.com/mgeeky/3b11169ab77a7de354f4111aa2f0df38
 ---
