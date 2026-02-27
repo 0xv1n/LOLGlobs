@@ -16,7 +16,7 @@ Patterns:
   - Pattern: "$r=(& (gcm N*-O*) System.Net.WebRequest)::Create('http://...');$r.(($r.PsObject.Methods|?{$_.Name-clike'G*se'}).Name).Invoke()"
     Wildcards: ["*"]
     Notes: "gcm glob on New-Object combined with -clike method glob — two independent glob layers"
-  - Pattern: "[scriptblock]::Create(\"$r=[Net.WebRequest]::Create('http://...');$r.(($r.PsObject.Methods|?{\$_.Name-clike'G*se'}).Name).Invoke()\").Invoke()"
+  - Pattern: "[scriptblock]::Create(\"$r=[Net.WebRequest]::Create('http://...');$r.(($r.PsObject.Methods|?{$_.Name-clike'G*se'}).Name).Invoke()\").Invoke()"
     Wildcards: ["*"]
     Notes: "ScriptBlock-wrapped cradle with -clike method resolution for deferred execution"
 PlatformNotes: |
