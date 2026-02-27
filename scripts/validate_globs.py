@@ -334,7 +334,7 @@ def test_powershell(entries):
                     _result("FAIL", label, f"-clike '{clike_glob}' matched no methods on {obj_type}")
                     failed += 1
                 elif expected_method.lower() in output.lower():
-                    _result("PASS", label, f"'{clike_glob}' → {output}")
+                    _result("PASS", label, f"'{clike_glob}' -> {output}")
                     passed += 1
                 else:
                     _result("FAIL", label, f"'{clike_glob}' resolved to '{output}', expected '{expected_method}'")
