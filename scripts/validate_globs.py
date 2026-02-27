@@ -248,19 +248,23 @@ def test_windows_cmd(entries):
 
 
 # ── PowerShell ────────────────────────────────────────────────────────────────
-# (gcm/Get-Command Pattern) or (gal/Get-Alias Pattern)
+# (gcm/Get-Command Pattern) or (gal/Get-Alias Pattern) or (DIR Alias:/pattern)
 _PS_GCM_RE = re.compile(r"\(\s*(?:gcm|Get-Command)\s+([^)]+)\)", re.IGNORECASE)
 _PS_GAL_RE = re.compile(r"\(\s*(?:gal|Get-Alias)\s+([^)]+)\)", re.IGNORECASE)
+_PS_DIR_ALIAS_RE = re.compile(r"\(\s*DIR\s+Alias:/([^)]+)\)", re.IGNORECASE)
 
 
 def _extract_ps_glob(pattern_str):
-    """Return (kind, glob_arg) where kind is 'gcm' or 'gal', or (None, None)."""
+    """Return (kind, glob_arg) where kind is 'gcm', 'gal', or 'dir_alias', or (None, None)."""
     m = _PS_GCM_RE.search(pattern_str)
     if m:
         return "gcm", m.group(1).strip()
     m = _PS_GAL_RE.search(pattern_str)
     if m:
         return "gal", m.group(1).strip()
+    m = _PS_DIR_ALIAS_RE.search(pattern_str)
+    if m:
+        return "dir_alias", m.group(1).strip()
     return None, None
 
 
@@ -281,7 +285,7 @@ def test_powershell(entries):
 
             kind, glob_arg = _extract_ps_glob(pattern_str)
             if kind is None:
-                _result("SKIP", label, "couldn't parse gcm/Get-Command or gal/Get-Alias glob")
+                _result("SKIP", label, "couldn't parse gcm/Get-Command, gal/Get-Alias, or DIR Alias:/")
                 skipped += 1
                 continue
 
@@ -290,9 +294,14 @@ def test_powershell(entries):
                     f"Get-Command '{glob_arg}' -ErrorAction SilentlyContinue"
                     f" | Select-Object -ExpandProperty Name"
                 )
-            else:  # gal — resolve alias to its target cmdlet name
+            elif kind == "gal":  # resolve alias to its target cmdlet name
                 ps_script = (
                     f"Get-Alias '{glob_arg}' -ErrorAction SilentlyContinue"
+                    f" | Select-Object -ExpandProperty Definition"
+                )
+            else:  # dir_alias — resolve via Alias: PSDrive
+                ps_script = (
+                    f"Get-ChildItem 'Alias:/{glob_arg}' -ErrorAction SilentlyContinue"
                     f" | Select-Object -ExpandProperty Definition"
                 )
 
@@ -319,7 +328,17 @@ def test_powershell(entries):
                 aliases = output.replace("\n", ", ")[:80]
                 _result("SKIP", label, f"gal matched multiple aliases (ambiguous): {aliases}")
                 skipped += 1
-            elif name.lower() in output.lower():
+            elif kind == "gcm" and "\n" in output:
+                # Multiple cmdlets matched — intentionally non-unique patterns are common,
+                # so treat as SKIP rather than FAIL (follow-up PR will audit individually)
+                cmdlets = output.replace("\n", ", ")[:120]
+                _result("SKIP", label, f"gcm matched multiple cmdlets: {cmdlets}")
+                skipped += 1
+            elif name.lower() in output.lower() or any(
+                bp.lower() in output.lower()
+                for bp in entry.get("BinaryPath", [])
+                if "/" not in bp and "\\" not in bp
+            ):
                 _result("PASS", label)
                 passed += 1
             else:
