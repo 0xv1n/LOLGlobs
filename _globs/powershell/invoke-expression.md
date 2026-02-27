@@ -31,9 +31,13 @@ Patterns:
   - Pattern: "& (gcm Invok[d-f]-Expression) 'payload'"
     Wildcards: ["[d-f]"]
     Notes: "Character range matches 'e' in Invoke"
+  - Pattern: "& (DIR Alias:/I*X) 'payload'"
+    Wildcards: ["*"]
+    Notes: "Resolves IEX alias via PowerShell's Alias: PSDrive glob — filesystem-style wildcard on the Alias provider"
 PlatformNotes: |
   `iex` is a built-in alias. `Invoke-Expression` is one of the most monitored cmdlets. Wildcards on the cmdlet name via `gcm` or `gal` can bypass signature-based detections. Also works with base64: `iex ([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String('...')))`.
 Resources:
   - https://attack.mitre.org/techniques/T1059/001/
   - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-expression
+  - https://gist.github.com/mgeeky/3b11169ab77a7de354f4111aa2f0df38
 ---
