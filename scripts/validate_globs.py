@@ -252,6 +252,9 @@ def test_windows_cmd(entries):
 _PS_GCM_RE = re.compile(r"\(\s*(?:gcm|Get-Command)\s+([^)]+)\)", re.IGNORECASE)
 _PS_GAL_RE = re.compile(r"\(\s*(?:gal|Get-Alias)\s+([^)]+)\)", re.IGNORECASE)
 _PS_DIR_ALIAS_RE = re.compile(r"\(\s*DIR\s+Alias:/([^)]+)\)", re.IGNORECASE)
+# -clike method resolution: extracts the .NET type and the clike glob
+_PS_NEWOBJ_TYPE_RE = re.compile(r"New-Object\s+([\w.]+)", re.IGNORECASE)
+_PS_CLIKE_RE = re.compile(r"-clike\s*'([^']+)'", re.IGNORECASE)
 
 
 def _extract_ps_glob(pattern_str):
@@ -285,8 +288,57 @@ def test_powershell(entries):
 
             kind, glob_arg = _extract_ps_glob(pattern_str)
             if kind is None:
-                _result("SKIP", label, "couldn't parse gcm/Get-Command, gal/Get-Alias, or DIR Alias:/")
-                skipped += 1
+                if "-clike" not in wildcards:
+                    _result("SKIP", label, "couldn't parse gcm/Get-Command, gal/Get-Alias, or DIR Alias:/")
+                    skipped += 1
+                    continue
+
+                # ── -clike method resolution validation ───────────────────────
+                expected_method = pat.get("Method")
+                type_m = _PS_NEWOBJ_TYPE_RE.search(pattern_str)
+                clike_m = _PS_CLIKE_RE.search(pattern_str)
+
+                if not type_m or not clike_m:
+                    _result("SKIP", label, "-clike: couldn't extract New-Object type or clike glob")
+                    skipped += 1
+                    continue
+
+                if not expected_method:
+                    _result("SKIP", label, "-clike: no Method field — add 'Method: <ExpectedName>' to validate")
+                    skipped += 1
+                    continue
+
+                obj_type = type_m.group(1)
+                clike_glob = clike_m.group(1)
+                ps_script = (
+                    f"(New-Object {obj_type}).PsObject.Methods"
+                    f" | ?{{$_.Name -clike '{clike_glob}'}}"
+                    f" | Select-Object -ExpandProperty Name"
+                )
+                try:
+                    proc = subprocess.run(
+                        ["powershell", "-NoProfile", "-NonInteractive", "-Command", ps_script],
+                        capture_output=True, text=True, timeout=30,
+                    )
+                    output = proc.stdout.strip()
+                except FileNotFoundError:
+                    _result("SKIP", label, "powershell not found on PATH")
+                    skipped += 1
+                    continue
+                except Exception as exc:
+                    _result("SKIP", label, f"subprocess error: {exc}")
+                    skipped += 1
+                    continue
+
+                if not output:
+                    _result("FAIL", label, f"-clike '{clike_glob}' matched no methods on {obj_type}")
+                    failed += 1
+                elif expected_method.lower() in output.lower():
+                    _result("PASS", label, f"'{clike_glob}' → {output}")
+                    passed += 1
+                else:
+                    _result("FAIL", label, f"'{clike_glob}' resolved to '{output}', expected '{expected_method}'")
+                    failed += 1
                 continue
 
             if kind == "gcm":

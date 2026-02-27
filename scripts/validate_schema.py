@@ -5,8 +5,9 @@ Checks:
   - Required fields present
   - Platform / Category match enum values from _data/*.yml
   - Pattern sub-fields (Pattern, Wildcards, Notes) present
-  - Wildcards values are in {"?", "*", "[]"}
+  - Wildcards values are in {"?", "*", "[]", "-clike"}
   - Wildcards consistency: listed wildcard char appears in Pattern string
+  - Method (optional): if present alongside -clike wildcard, must be a non-empty string
   - MitreID format: T####[.###]
   - Directory/Platform match
   - No duplicate Name+Platform pairs
@@ -139,7 +140,7 @@ def validate_entry(filepath, data, valid_platforms, valid_categories, seen):
             continue
 
         for wc in wildcards:
-            # Valid wildcard value? Accepts *, ?, [], or any [X-Y]/[abc] range.
+            # Valid wildcard value? Accepts *, ?, [], -clike, or any [X-Y]/[abc] range.
             is_bracket_range = BRACKET_RANGE_RE.match(wc) is not None
             if wc not in VALID_WILDCARDS and not is_bracket_range:
                 errors.append(
@@ -154,6 +155,12 @@ def validate_entry(filepath, data, valid_platforms, valid_categories, seen):
                     f"{prefix}: Wildcard '{wc}' listed but '{char}' "
                     f"not found in Pattern string: {pattern_str!r}"
                 )
+
+        # Method (optional): only meaningful for -clike patterns; must be a non-empty string
+        if "Method" in pat:
+            method_val = pat["Method"]
+            if not isinstance(method_val, str) or not method_val.strip():
+                errors.append(f"{prefix}: 'Method' must be a non-empty string, got {method_val!r}")
 
     return errors
 

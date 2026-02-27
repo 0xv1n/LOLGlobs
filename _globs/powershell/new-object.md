@@ -34,9 +34,11 @@ Patterns:
   - Pattern: "$w=New-Object Net.WebClient;$w.(($w.PsObject.Methods|?{$_.Name-clike'D*g'}).Name).Invoke('http://...')"
     Wildcards: ["-clike"]
     Notes: "-clike 'D*g' resolves DownloadString method on Net.WebClient via PSObject.Methods"
+    Method: DownloadString
   - Pattern: "$w=New-Object Net.WebClient;$w.(($w.PsObject.Methods|?{$_.Name-clike'D*F*'}).Name).Invoke('http://...','C:\\out.exe')"
     Wildcards: ["-clike"]
     Notes: "-clike 'D*F*' resolves DownloadFile method"
+    Method: DownloadFile
 Resources:
   - https://attack.mitre.org/techniques/T1105/
   - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-object
