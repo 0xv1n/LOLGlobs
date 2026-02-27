@@ -13,7 +13,7 @@ Patterns:
   - Pattern: "$r=[Net.WebRequest]::Create('http://...');$res=$r.(($r.PsObject.Methods|?{$_.Name-clike'G*se'}).Name).Invoke();$s=$res.(($res.PsObject.Methods|?{$_.Name-clike'G*eam'}).Name).Invoke()"
     Wildcards: ["*"]
     Notes: "Chained -clike globs: G*se resolves GetResponse, G*eam resolves GetResponseStream"
-  - Pattern: "$r=(& (gcm N*-O*) System.Net.WebRequest)::Create('http://...');$r.(($r.PsObject.Methods|?{$_.Name-clike'G*se'}).Name).Invoke()"
+  - Pattern: "$r=(& (gcm N*-Obj*) System.Net.WebRequest)::Create('http://...');$r.(($r.PsObject.Methods|?{$_.Name-clike'G*se'}).Name).Invoke()"
     Wildcards: ["*"]
     Notes: "gcm glob on New-Object combined with -clike method glob — two independent glob layers"
   - Pattern: "[scriptblock]::Create(\"$r=[Net.WebRequest]::Create('http://...');$r.(($r.PsObject.Methods|?{$_.Name-clike'G*se'}).Name).Invoke()\").Invoke()"
