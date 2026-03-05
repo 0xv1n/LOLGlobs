@@ -38,6 +38,15 @@ Patterns:
   - Pattern: "/???/???/c*"
     Wildcards: ["?", "*"]
     Notes: "Full path obfuscation with mixed wildcards"
+  - Pattern: "for p in /usr/{bin,sbin}/curl; do \"$p\" && break; done"
+    Wildcards: ["{}"]
+    Notes: "Brace expansion in for loop — tries both path alternatives"
+  - Pattern: "$(ls /usr/bin/cur?)"
+    Wildcards: ["?"]
+    Notes: "ls resolves the glob to full path; command substitution executes the result"
+  - Pattern: "$'\\x63\\x75\\x72\\x6c'"
+    Wildcards: []
+    Notes: "ANSI-C hex escapes expand to the string 'curl' before execution"
 Resources:
   - https://attack.mitre.org/techniques/T1105/
   - https://curl.se/docs/manpage.html

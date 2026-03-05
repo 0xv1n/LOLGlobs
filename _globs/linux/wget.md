@@ -38,6 +38,15 @@ Patterns:
   - Pattern: "wge[t]"
     Wildcards: ["[]"]
     Notes: "Bracket class matching last two chars (matches any single char in set)"
+  - Pattern: "for p in /usr/{bin,sbin}/wget; do \"$p\" && break; done"
+    Wildcards: ["{}"]
+    Notes: "Brace expansion in for loop — tries both path alternatives"
+  - Pattern: "$(ls /usr/bin/wge?)"
+    Wildcards: ["?"]
+    Notes: "ls resolves glob to /usr/bin/wget; command substitution executes it"
+  - Pattern: "$'\\x77\\x67\\x65\\x74'"
+    Wildcards: []
+    Notes: "ANSI-C hex escapes expand to 'wget' before execution"
 Resources:
   - https://attack.mitre.org/techniques/T1105/
   - https://www.gnu.org/software/wget/manual/wget.html

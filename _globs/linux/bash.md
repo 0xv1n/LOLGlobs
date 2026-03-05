@@ -38,6 +38,18 @@ Patterns:
   - Pattern: "/???/b*"
     Wildcards: ["?", "*"]
     Notes: "Highly obfuscated full path (may match other binaries)"
+  - Pattern: "for p in /usr/{bin,local/bin}/bash; do \"$p\" && break; done"
+    Wildcards: ["{}"]
+    Notes: "Brace expansion in for loop — tries /usr/bin/bash then /usr/local/bin/bash"
+  - Pattern: "$(ls /bin/bas?)"
+    Wildcards: ["?"]
+    Notes: "ls resolves glob to /bin/bash; command substitution executes it"
+  - Pattern: "$'\\x62\\x61\\x73\\x68'"
+    Wildcards: []
+    Notes: "ANSI-C hex escapes expand to 'bash' before execution"
+  - Pattern: "shopt -s extglob; /bin/+(ba)sh"
+    Wildcards: ["+(...)"]
+    Notes: "extglob +(ba) matches one or more occurrences of 'ba' — matches 'ba' in bash with full path"
 Resources:
   - https://attack.mitre.org/techniques/T1059/004/
   - https://www.gnu.org/software/bash/manual/bash.html
