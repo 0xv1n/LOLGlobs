@@ -32,12 +32,21 @@ REQUIRED_FIELDS = [
     "Patterns",
 ]
 REQUIRED_PATTERN_FIELDS = ["Pattern", "Wildcards", "Notes"]
-VALID_WILDCARDS = {"?", "*", "[]", "-clike"}
+VALID_WILDCARDS = {"?", "*", "[]", "-clike", "{}", "+()", "@()", "-match"}
 BRACKET_RANGE_RE = re.compile(r"^\[.+\]$")  # [abc], [a-z], [d-f], etc.
 MITRE_RE = re.compile(r"^T\d{4}(\.\d{3})?$")
 
 # Map wildcard label -> character that must appear in the Pattern string
-WILDCARD_CHARS = {"?": "?", "*": "*", "[]": "[", "-clike": "-clike"}
+WILDCARD_CHARS = {
+    "?": "?",
+    "*": "*",
+    "[]": "[",
+    "-clike": "-clike",
+    "{}": "{",
+    "+()": "+(",
+    "@()": "@(",
+    "-match": "-match",
+}
 
 
 def load_enums():

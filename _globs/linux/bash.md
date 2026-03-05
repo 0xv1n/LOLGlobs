@@ -48,7 +48,7 @@ Patterns:
     Wildcards: []
     Notes: "ANSI-C hex escapes expand to 'bash' before execution"
   - Pattern: "shopt -s extglob; /bin/+(ba)sh"
-    Wildcards: ["+(...)"]
+    Wildcards: ["+()" ]
     Notes: "extglob +(ba) matches one or more occurrences of 'ba' — matches 'ba' in bash with full path"
 Resources:
   - https://attack.mitre.org/techniques/T1059/004/

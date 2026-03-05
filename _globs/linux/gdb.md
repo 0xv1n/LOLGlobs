@@ -14,9 +14,6 @@ Patterns:
   - Pattern: "gd[b]"
     Wildcards: ["[]"]
     Notes: "Character class on last char"
-  - Pattern: "g*b"
-    Wildcards: ["*"]
-    Notes: "Star matches 'd'"
   - Pattern: "/usr/bin/g?b"
     Wildcards: ["?"]
     Notes: "Full path with wildcard"
