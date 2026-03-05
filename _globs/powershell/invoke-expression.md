@@ -34,6 +34,12 @@ Patterns:
   - Pattern: "& (DIR Alias:/I*X) 'payload'"
     Wildcards: ["*"]
     Notes: "Resolves IEX alias via PowerShell's Alias: PSDrive glob — filesystem-style wildcard on the Alias provider"
+  - Pattern: "& (gcm ('{0}voke-{1}' -f 'In','Expression')) 'payload'"
+    Wildcards: []
+    Notes: "-f format operator constructs the cmdlet name string from fragments before gcm resolves it"
+  - Pattern: "& (gcm * | ? Name -match '^Inv.*Expr') 'payload'"
+    Wildcards: ["-match"]
+    Notes: "Regex -match filter on all commands via Where-Object pipeline — regex alternative to glob wildcards"
 PlatformNotes: |
   `iex` is a built-in alias. `Invoke-Expression` is one of the most monitored cmdlets. Wildcards on the cmdlet name via `gcm` or `gal` can bypass signature-based detections. Also works with base64: `iex ([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String('...')))`.
 Resources:

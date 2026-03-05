@@ -34,6 +34,9 @@ Patterns:
   - Pattern: "& (gcm *rocess) cmd.exe"
     Wildcards: ["*"]
     Notes: "Short suffix pattern"
+  - Pattern: "& (gcm Start-Pro*) (Resolve-Path C:\\Win*\\Sys*32\\cmd.exe)"
+    Wildcards: ["*"]
+    Notes: "Double glob — gcm wildcard resolves Start-Process AND Resolve-Path filesystem glob resolves the binary path to cmd.exe"
 Resources:
   - https://attack.mitre.org/techniques/T1059/001/
   - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process
