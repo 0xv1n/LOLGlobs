@@ -20,6 +20,12 @@ Patterns:
   - Pattern: "for /f %i in ('dir /b C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\power*.exe') do %i"
     Wildcards: ["*"]
     Notes: "Full path dir glob"
+  - Pattern: "forfiles /p C:\\Windows\\System32\\WindowsPowerShell\\v1.0 /m power*.exe /c \"@file -nop -c whoami\""
+    Wildcards: ["*"]
+    Notes: "forfiles * mask finds powershell.exe in its install directory — @file expands to matched filename"
+  - Pattern: "C:\\Windows\\System32\\WINDOW~1\\v1.0\\POWERS~1.EXE -nop -c whoami"
+    Wildcards: []
+    Notes: "8.3 SFN — WINDOW~1 for WindowsPowerShell, POWERS~1 for powershell.exe; requires NtfsDisable8dot3NameCreation=0"
 Resources:
   - https://attack.mitre.org/techniques/T1059/001/
   - https://lolbas-project.github.io/lolbas/Binaries/Powershell/
