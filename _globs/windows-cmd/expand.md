@@ -22,6 +22,14 @@ Patterns:
   - Pattern: "C:\\Windows\\System32\\expand.exe payload.cab -F:* C:\\out\\"
     Wildcards: []
     Notes: "Direct invocation — -F:* extracts all files from the CAB"
+  - Pattern: "for %i in (C:\\Windows\\System32\\exp?nd.exe) do @%i payload.cab -F:* C:\\out\\"
+    Wildcards: ["?"]
+    Notes: "Native CMD for loop with filesystem glob — exp?nd uniquely matches expand.exe without hitting explorer.exe"
+    Method: "Simple for glob"
+  - Pattern: "for /f %i in ('where /r C:\\Windows\\System32 exp?nd.exe') do %i payload.cab -F:* C:\\out\\"
+    Wildcards: ["?"]
+    Notes: "Recursive where search — ? wildcard avoids matching explorer.exe or other exp*.exe files"
+    Method: "where /r recursive"
 PlatformNotes: |
   expand.exe is a built-in Windows utility for extracting CAB files. The `-F:*` flag extracts all files. It is less monitored than certutil for file staging. In batch scripts use `%%i` instead of `%i`.
 Resources:

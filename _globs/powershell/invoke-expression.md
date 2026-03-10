@@ -40,6 +40,30 @@ Patterns:
   - Pattern: "& (gcm * | ? Name -match '^Inv.*Expr') 'payload'"
     Wildcards: ["-match"]
     Notes: "Regex -match filter on all commands via Where-Object pipeline — regex alternative to glob wildcards"
+  - Pattern: "& (Get-Command -Verb Inv* -Noun *Expression) 'payload'"
+    Wildcards: ["*"]
+    Notes: "Get-Command -Verb/-Noun structured split — wildcards on verb and noun independently, narrowing match to Invoke-Expression"
+    Method: "Get-Command -Verb -Noun"
+  - Pattern: "& ($ExecutionContext.InvokeCommand.GetCommand('I*-Expression','Cmdlet')) 'payload'"
+    Wildcards: ["*"]
+    Notes: "Engine-level cmdlet resolution via InvokeCommand.GetCommand — bypasses Get-Command entirely; I*-Expression resolves to Invoke-Expression"
+    Method: "ExecutionContext resolution"
+  - Pattern: "& (gcm ('Inv'+'oke-Ex'+'pression')) 'payload'"
+    Wildcards: []
+    Notes: "String concatenation builds the cmdlet name from three fragments — full name never appears contiguous in source"
+    Method: "String concatenation"
+  - Pattern: "$c = gcm *-Expr*; & $c 'whoami'"
+    Wildcards: ["*"]
+    Notes: "Variable-based invocation — glob resolves to Invoke-Expression at assignment time; & invokes the stored CommandInfo object"
+    Method: "Variable invocation"
+  - Pattern: "& (gcm `I`n`v`o`k`e-Expression) 'payload'"
+    Wildcards: []
+    Notes: "Backtick character insertion — PowerShell ignores backticks before most characters, so the name resolves normally but string-matching signatures miss it"
+    Method: "Backtick insertion"
+  - Pattern: "& (gcm Microsoft.PowerShell.Utility\\Inv*-Expr*) 'payload'"
+    Wildcards: ["*"]
+    Notes: "Module-qualified wildcard — specifying the module namespace forces resolution within Microsoft.PowerShell.Utility while still using glob patterns"
+    Method: "Module-qualified wildcard"
 PlatformNotes: |
   `iex` is a built-in alias. `Invoke-Expression` is one of the most monitored cmdlets. Wildcards on the cmdlet name via `gcm` or `gal` can bypass signature-based detections. Also works with base64: `iex ([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String('...')))`.
 Resources:

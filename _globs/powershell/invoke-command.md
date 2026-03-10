@@ -28,6 +28,21 @@ Patterns:
   - Pattern: "& (gal ic?) -ComputerName TARGET -ScriptBlock { id }"
     Wildcards: ["?"]
     Notes: "Get-Alias with wildcard resolves 'icm'"
+  - Pattern: "& (DIR Alias:/ic?) -ComputerName TARGET -ScriptBlock { whoami }"
+    Wildcards: ["?"]
+    Notes: "Resolves icm alias via PowerShell's Alias: PSDrive glob — ic? matches icm (Invoke-Command)"
+  - Pattern: "& (gcm ('{0}voke-{1}' -f 'In','Command')) -ComputerName TARGET -ScriptBlock { whoami }"
+    Wildcards: []
+    Notes: "-f format operator constructs 'Invoke-Command' from string fragments before gcm resolves it"
+    Method: "-f format operator"
+  - Pattern: "& (Get-Command -Verb Inv* -Noun *Command) -ComputerName TARGET -ScriptBlock { whoami }"
+    Wildcards: ["*"]
+    Notes: "Get-Command -Verb/-Noun structured split — wildcards on verb and noun independently narrow the match to Invoke-Command"
+    Method: "Get-Command -Verb -Noun"
+  - Pattern: "& (gcm `I`n`v`o`k`e-Command) -ComputerName TARGET -ScriptBlock { whoami }"
+    Wildcards: []
+    Notes: "Backtick character insertion — PowerShell ignores backticks before most characters, so the name resolves normally but string-matching signatures miss it"
+    Method: "Backtick insertion"
 Resources:
   - https://attack.mitre.org/techniques/T1021/006/
   - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/invoke-command

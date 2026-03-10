@@ -22,6 +22,13 @@ Patterns:
   - Pattern: "'payload' | & (gcm O*-F*) -FilePath C:\\payload.ps1"
     Wildcards: ["*"]
     Notes: "Pipeline form — writes string to file via glob-resolved Out-File"
+  - Pattern: "& (gcm O[t-v]t-File) -FilePath C:\\out.txt"
+    Wildcards: ["[t-v]"]
+    Notes: "Character range [t-v] matches 'u' in Out — only character in range that satisfies Out-File"
+  - Pattern: "& (gcm ('{0}ut-{1}' -f 'O','File')) -FilePath C:\\out.txt"
+    Wildcards: []
+    Notes: "-f format operator constructs 'Out-File' from string fragments before gcm resolves it"
+    Method: "-f format operator"
 PlatformNotes: |
   Out-File writes pipeline output to a file. Key differences from Set-Content: accepts pipeline input directly, uses the console encoding by default, and supports `-Append`. The `-Encoding` parameter controls output encoding. Useful for writing scripts to disk: `'IEX ...' | Out-File payload.ps1`.
 Resources:

@@ -25,6 +25,14 @@ Patterns:
   - Pattern: "C:\\Windows\\System32\\EXTRAC~1.EXE /e /y payload.cab C:\\out\\"
     Wildcards: []
     Notes: "8.3 SFN — EXTRAC~1 auto-generated for extrac32.exe; requires NtfsDisable8dot3NameCreation=0"
+  - Pattern: "for %i in (C:\\Windows\\System32\\extrac*.exe) do @%i /e /y payload.cab C:\\out\\"
+    Wildcards: ["*"]
+    Notes: "Native CMD for loop with filesystem glob — expands extrac*.exe directly in System32 without where.exe"
+    Method: "Simple for glob"
+  - Pattern: "for /f %i in ('where /r C:\\Windows\\System32 extrac*.exe') do %i /e /y payload.cab C:\\out\\"
+    Wildcards: ["*"]
+    Notes: "Recursive where search scoped to System32 — locates extrac32.exe without spelling full binary name"
+    Method: "where /r recursive"
 PlatformNotes: |
   extrac32.exe is a legacy CAB extraction utility. The `/e` flag extracts all files. It is often overlooked in EDR rule sets compared to certutil or expand. In batch scripts use `%%i` instead of `%i`.
 Resources:

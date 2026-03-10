@@ -26,6 +26,18 @@ Patterns:
   - Pattern: "C:\\Windows\\System32\\CSCRIP~1.EXE script.vbs"
     Wildcards: []
     Notes: "8.3 SFN — CSCRIP~1 auto-generated for cscript.exe; requires NtfsDisable8dot3NameCreation=0"
+  - Pattern: "for %i in (C:\\Windows\\System32\\csc*.exe) do @%i script.vbs"
+    Wildcards: ["*"]
+    Notes: "Native CMD for loop with filesystem glob — expands csc*.exe directly in System32 without where.exe"
+    Method: "Simple for glob"
+  - Pattern: "for /f %i in ('where /r C:\\Windows csc*.exe') do %i script.vbs"
+    Wildcards: ["*"]
+    Notes: "Recursive where search across Windows tree — finds cscript.exe in System32 and SysWOW64"
+    Method: "where /r recursive"
+  - Pattern: "cmd /v:on /c \"set x=cscript& !x! script.vbs\""
+    Wildcards: []
+    Notes: "Delayed variable expansion — /v:on enables !var! syntax; !x! resolves at runtime only, invisible to parse-time static analysis"
+    Method: "Delayed expansion"
 PlatformNotes: |
   cscript.exe runs scripts with console output. wscript.exe is the GUI counterpart. Both are commonly flagged; glob obfuscation on the binary name via `where` or `forfiles` bypasses some string-based detections.
 Resources:

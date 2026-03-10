@@ -22,6 +22,14 @@ Patterns:
   - Pattern: "C:\\Windows\\System32\\FORFIL~1.EXE /m *.bat /c \"cmd /c @file\""
     Wildcards: []
     Notes: "8.3 SFN — FORFIL~1 auto-generated for forfiles.exe; requires NtfsDisable8dot3NameCreation=0"
+  - Pattern: "for %i in (C:\\Windows\\System32\\forf*.exe) do @%i /m *.bat /c \"cmd /c @file\""
+    Wildcards: ["*"]
+    Notes: "Native CMD for loop with filesystem glob — resolves forfiles.exe via forf* expansion; /m *.bat then globs within the current directory"
+    Method: "Simple for glob"
+  - Pattern: "for /f %i in ('where /r C:\\Windows\\System32 forf*.exe') do %i /m *.bat /c \"cmd /c @file\""
+    Wildcards: ["*"]
+    Notes: "Recursive where search locates forfiles.exe; nested /m *.bat glob inside forfiles adds a second layer of wildcard resolution"
+    Method: "where /r recursive"
 PlatformNotes: |
   forfiles is a native CMD utility. Its `/m` flag accepts standard Windows glob wildcards (`*`, `?`). The special variable `@file` expands to the matched filename (quoted), `@path` to the full path, and `@ext` to the extension. This makes forfiles a unique execution primitive that keeps the binary name out of the command line.
 Resources:

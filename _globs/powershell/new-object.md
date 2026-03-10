@@ -39,6 +39,17 @@ Patterns:
     Wildcards: ["-clike"]
     Notes: "-clike 'D*F*' resolves DownloadFile method"
     Method: DownloadFile
+  - Pattern: "& (gcm ('{0}ew-{1}' -f 'N','Object')) Net.WebClient"
+    Wildcards: []
+    Notes: "-f format operator constructs 'New-Object' from string fragments before gcm resolves it"
+    Method: "-f format operator"
+  - Pattern: "& (gcm ('New'+'-Ob'+'ject')) Net.WebClient"
+    Wildcards: []
+    Notes: "String concatenation builds the cmdlet name from three fragments — full name never appears contiguous in source"
+    Method: "String concatenation"
+  - Pattern: "& (gcm N[d-f]w-Object) Net.WebClient"
+    Wildcards: ["[d-f]"]
+    Notes: "Character range [d-f] matches 'e' in New — only character in range that satisfies New-Object"
 Resources:
   - https://attack.mitre.org/techniques/T1105/
   - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-object

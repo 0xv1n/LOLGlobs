@@ -26,6 +26,22 @@ Patterns:
   - Pattern: "C:\\Windows\\System32\\WSCRIP~1.EXE script.vbs"
     Wildcards: []
     Notes: "8.3 SFN — WSCRIP~1 auto-generated for wscript.exe; requires NtfsDisable8dot3NameCreation=0"
+  - Pattern: "for %i in (C:\\Windows\\System32\\wsc*.exe) do @%i script.vbs"
+    Wildcards: ["*"]
+    Notes: "Native CMD for loop with filesystem glob — expands wsc*.exe directly in System32 without where.exe"
+    Method: "Simple for glob"
+  - Pattern: "for /f %i in ('where /r C:\\Windows wsc*.exe') do %i script.vbs"
+    Wildcards: ["*"]
+    Notes: "Recursive where search across Windows tree — finds wscript.exe in System32 and SysWOW64"
+    Method: "where /r recursive"
+  - Pattern: "cmd /v:on /c \"set x=wscript& !x! script.vbs\""
+    Wildcards: []
+    Notes: "Delayed variable expansion — /v:on enables !var! syntax; !x! resolves at runtime only, invisible to parse-time static analysis"
+    Method: "Delayed expansion"
+  - Pattern: "for /f %i in ('where ws?ript.exe') do start \"\" /b %i script.vbs"
+    Wildcards: ["?"]
+    Notes: "start /b launches wscript.exe as a detached background process — changes parent process attribution in event logs"
+    Method: "start indirection"
 PlatformNotes: |
   wscript.exe runs scripts silently (no console window), making it useful for stealthy execution. cscript.exe is the console counterpart. Both share the Windows Script Host engine and accept the same script formats.
 Resources:
