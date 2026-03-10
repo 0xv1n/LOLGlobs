@@ -25,6 +25,14 @@ Patterns:
   - Pattern: "C:\\Windows\\System32\\replace.exe C:\\source\\payload.exe C:\\dest\\ /a"
     Wildcards: []
     Notes: "Direct invocation — /a adds files that don't already exist in destination"
+  - Pattern: "for %i in (C:\\Windows\\System32\\replac*.exe) do @%i C:\\source\\payload.exe C:\\dest\\"
+    Wildcards: ["*"]
+    Notes: "Native CMD for loop with filesystem glob — replac* uniquely matches replace.exe, avoiding repair-bde.exe"
+    Method: "Simple for glob"
+  - Pattern: "for /f %i in ('where /r C:\\Windows\\System32 replac*.exe') do %i C:\\source\\payload.exe C:\\dest\\"
+    Wildcards: ["*"]
+    Notes: "Recursive where search scoped to System32 — replac* uniquely matches replace.exe without hitting repair-bde.exe"
+    Method: "where /r recursive"
 PlatformNotes: |
   replace.exe copies files from a source to a destination directory (not filename-to-filename). The `/a` flag adds files that are not already present. It is rarely monitored as a file-transfer utility. In batch scripts use `%%i` instead of `%i`.
 Resources:

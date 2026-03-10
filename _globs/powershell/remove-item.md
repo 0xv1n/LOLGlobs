@@ -31,6 +31,19 @@ Patterns:
   - Pattern: "& (gal r?) -Path ..."
     Wildcards: ["?"]
     Notes: "Get-Alias r? — resolves 'rm' or 'ri' depending on match; 'ri' is the shorter alias"
+  - Pattern: "& (gcm R[d-f]move-Item) -Path C:\\artifact.log -Force"
+    Wildcards: ["[d-f]"]
+    Notes: "Character range [d-f] matches 'e' in Remove — only character in range that satisfies Remove-Item"
+  - Pattern: "& (DIR Alias:/r?) -Path C:\\artifact.log"
+    Wildcards: ["?"]
+    Notes: "Resolves rm/ri alias via PowerShell's Alias: PSDrive glob — filesystem-style wildcard on the Alias provider"
+  - Pattern: "& (gcm * | ? Name -match '^Rem.*It') -Path C:\\artifact.log -Force"
+    Wildcards: ["-match"]
+    Notes: "Regex -match filter on all commands via Where-Object pipeline — regex alternative to glob wildcards"
+  - Pattern: "& (gcm ('{0}move-{1}' -f 'Re','Item')) -Path C:\\artifact.log -Force"
+    Wildcards: []
+    Notes: "-f format operator constructs 'Remove-Item' from string fragments before gcm resolves it"
+    Method: "-f format operator"
 PlatformNotes: |
   `rm`, `del`, and `ri` are built-in aliases. Remove-Item with `-Recurse -Force` silently deletes entire trees. Targets PowerShell providers beyond the filesystem: `Remove-Item HKLM:\SOFTWARE\...` operates on the registry, `Remove-Item Env:\VAR` deletes environment variables.
 Resources:

@@ -32,6 +32,26 @@ Patterns:
   - Pattern: "%SystemRoot%\\System32\\%COMSPEC:~-7%"
     Wildcards: []
     Notes: "Substring extraction — %COMSPEC% is the full path to cmd.exe; :~-7 extracts last 7 chars ('cmd.exe'), combined with %SystemRoot% to form full path"
+  - Pattern: "for %i in (C:\\Windows\\System32\\cm?.exe) do @%i /c whoami"
+    Wildcards: ["?"]
+    Notes: "Native CMD for loop with filesystem glob — cm? expands to cmd.exe directly in System32"
+    Method: "Simple for glob"
+  - Pattern: "for /f %i in ('where /r C:\\Windows cm?.exe') do %i /c whoami"
+    Wildcards: ["?"]
+    Notes: "Recursive where search across Windows tree — finds cmd.exe in System32 and SysWOW64"
+    Method: "where /r recursive"
+  - Pattern: "set a=cm& set b=d& call %a%%b%.exe /c whoami"
+    Wildcards: []
+    Notes: "Binary name split across two SET variables — CALL resolves %a%%b%.exe=cmd.exe; name never appears as a literal string"
+    Method: "set variable building"
+  - Pattern: "cmd /v:on /c \"set x=cmd& !x! /c whoami\""
+    Wildcards: []
+    Notes: "Delayed variable expansion — /v:on enables !var! syntax; !x! resolves at runtime, evading parse-time static analysis"
+    Method: "Delayed expansion"
+  - Pattern: "for /f %i in ('where cm?.exe') do start \"\" /b %i /c whoami"
+    Wildcards: ["?"]
+    Notes: "start /b launches resolved cmd.exe as a background process — changes parent process attribution in event logs"
+    Method: "start indirection"
 Resources:
   - https://attack.mitre.org/techniques/T1059/003/
   - https://lolbas-project.github.io/lolbas/Binaries/Cmd/
