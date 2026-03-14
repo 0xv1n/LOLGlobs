@@ -1273,6 +1273,7 @@ mark.search-hl {
 .tester-input-wrap:focus-within {
   border-color: var(--lime);
   box-shadow: 0 0 0 3px var(--lime-glow);
+  outline: none;
 }
 
 .tester-prompt {
@@ -1375,6 +1376,68 @@ mark.search-hl {
 }
 
 /* =====================================================
+   YARA Rule Section
+   ===================================================== */
+.yara-rule-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.yara-rule-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+.yara-rule-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+.yara-rule-label strong { color: var(--text-muted); }
+
+.yara-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--surface3);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r);
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.yara-copy-btn:hover {
+  background: var(--lime-glow);
+  border-color: var(--lime-border);
+  color: var(--lime);
+}
+
+.yara-rule-code {
+  margin: 0;
+  padding: 18px 22px;
+  background: var(--bg);
+  color: var(--lime);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+  tab-size: 4;
+}
+
+/* =====================================================
    Command Palette (Ctrl+K / Cmd+K)
    ===================================================== */
 .cmd-palette-overlay {
@@ -1388,9 +1451,11 @@ mark.search-hl {
   justify-content: center;
   padding-top: 18vh;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.18s ease;
 }
-.cmd-palette-overlay.is-open { opacity: 1; }
+.cmd-palette-overlay[hidden] { display: none; }
+.cmd-palette-overlay.is-open { opacity: 1; pointer-events: auto; }
 
 .cmd-palette {
   width: 100%;
@@ -1530,3 +1595,4 @@ mark.search-hl {
 .search-input:focus-visible,
 .tester-input:focus-visible,
 .cmd-palette-input:focus-visible { outline: none; }
+.tester-input-wrap:focus-within { outline: none; }

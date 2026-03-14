@@ -88,6 +88,22 @@ layout: default
       </div>
     </section>
 
+    <section class="entry-section yara-section">
+      <h2>YARA Rule</h2>
+      <div class="yara-rule-wrap">
+        <div class="yara-rule-header">
+          <span class="yara-rule-label">Auto-generated detection rule for <strong>{{ page.Name }}</strong></span>
+          <button class="yara-copy-btn" id="yara-copy-btn" title="Copy YARA rule">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"/>
+            </svg>
+            <span>Copy</span>
+          </button>
+        </div>
+        <pre class="yara-rule-code" id="yara-rule-code"></pre>
+      </div>
+    </section>
+
     {% if page.PlatformNotes %}
     <section class="entry-section platform-notes-section" data-platform="{{ page.Platform }}">
       <h2>Platform Notes</h2>
@@ -279,6 +295,147 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
   }
 
   input.addEventListener('input', test);
+})();
+
+// ---- YARA Rule Generator ----
+(function() {
+  var name = {{ page.Name | jsonify }};
+  var platform = {{ page.Platform | jsonify }};
+  var mitre = {{ page.MitreID | default: "" | jsonify }};
+  var category = {{ page.Category | default: "" | jsonify }};
+  var patterns = [{% for p in page.Patterns %}{{ p.Pattern | jsonify }}{% unless forloop.last %},{% endunless %}{% endfor %}];
+
+  // Sanitize name for YARA rule identifier (alphanumeric + underscore only)
+  function sanitizeId(s) {
+    return s.replace(/[^a-zA-Z0-9_]/g, '_').replace(/^(\d)/, '_$1');
+  }
+
+  // Convert a glob pattern to a YARA-compatible regex string
+  // Returns { type: 'str'|'regex', value: string }
+  function globToYara(glob) {
+    // Check if pattern has actual glob wildcards
+    var hasWildcards = /[*?\[\]]/.test(glob);
+    if (!hasWildcards) {
+      // Plain string — use as-is (escaped for YARA string)
+      return { type: 'str', value: glob };
+    }
+
+    var i = 0, len = glob.length, re = '';
+    while (i < len) {
+      var c = glob[i];
+      if (c === '*') {
+        re += '.*';
+      } else if (c === '?') {
+        re += '.';
+      } else if (c === '[') {
+        var j = i + 1;
+        if (j < len && (glob[j] === '!' || glob[j] === '^')) {
+          re += '[^';
+          j++;
+        } else {
+          re += '[';
+        }
+        while (j < len && glob[j] !== ']') {
+          // Escape backslashes for YARA regex
+          if (glob[j] === '\\') { re += '\\\\'; }
+          else { re += glob[j]; }
+          j++;
+        }
+        re += ']';
+        i = j;
+      } else if (c === '{') {
+        // Brace expansion: {a,b} -> (a|b)
+        re += '(';
+        i++;
+        while (i < len && glob[i] !== '}') {
+          re += glob[i] === ',' ? '|' : escYara(glob[i]);
+          i++;
+        }
+        re += ')';
+      } else {
+        re += escYara(c);
+      }
+      i++;
+    }
+    return { type: 'regex', value: re };
+  }
+
+  // Escape special regex chars for YARA
+  function escYara(c) {
+    return c.replace(/[.*+?^${}()|\\\/\[\]]/g, '\\$&');
+  }
+
+  // Escape string for YARA double-quoted context
+  function escYaraStr(s) {
+    return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  }
+
+  // Build the rule
+  var buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  var ruleName = sanitizeId(name) + '_LOLGlobs_' + buildDate;
+  var lines = [];
+  lines.push('rule ' + ruleName);
+  lines.push('{');
+
+  // Meta
+  lines.push('    meta:');
+  lines.push('        description = "Detects glob evasion patterns for ' + escYaraStr(name) + '"');
+  lines.push('        author      = "LOLGlobs (auto-generated)"');
+  lines.push('        reference   = "https://lolglobs.com"');
+  if (mitre) {
+    lines.push('        mitre_att   = "' + escYaraStr(mitre) + '"');
+  }
+  lines.push('        platform    = "' + escYaraStr(platform) + '"');
+  lines.push('        category    = "' + escYaraStr(category) + '"');
+  lines.push('        date        = "' + buildDate.slice(0,4) + '-' + buildDate.slice(4,6) + '-' + buildDate.slice(6) + '"');
+  lines.push('');
+
+  // Strings
+  lines.push('    strings:');
+  var condParts = [];
+  patterns.forEach(function(pat, idx) {
+    var label = '$p' + idx;
+    var conv = globToYara(pat);
+    if (conv.type === 'regex') {
+      lines.push('        ' + label + ' = /' + conv.value + '/ nocase');
+    } else {
+      lines.push('        ' + label + ' = "' + escYaraStr(conv.value) + '" nocase');
+    }
+    condParts.push(label);
+  });
+  lines.push('');
+
+  // Condition
+  lines.push('    condition:');
+  lines.push('        any of (' + condParts.join(', ') + ')');
+  lines.push('}');
+
+  var ruleText = lines.join('\n');
+
+  var codeEl = document.getElementById('yara-rule-code');
+  if (codeEl) codeEl.textContent = ruleText;
+
+  // Copy button
+  var copyBtn = document.getElementById('yara-copy-btn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function() {
+      navigator.clipboard.writeText(ruleText).then(function() {
+        var rect = copyBtn.getBoundingClientRect();
+        var toast = document.createElement('span');
+        toast.className = 'copy-toast';
+        toast.textContent = 'Copied!';
+        toast.style.position = 'fixed';
+        toast.style.left = (rect.left + rect.width / 2) + 'px';
+        toast.style.top = (rect.top - 6) + 'px';
+        document.body.appendChild(toast);
+        copyBtn.querySelector('span').textContent = 'Copied';
+        setTimeout(function() {
+          copyBtn.querySelector('span').textContent = 'Copy';
+          toast.remove();
+        }, 850);
+      });
+    });
+  }
 })();
 
 // Keyboard navigation: [ and ] or ArrowLeft / ArrowRight
