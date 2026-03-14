@@ -107,7 +107,31 @@ layout: default
   </div>
 
   <div class="entry-nav-footer">
-    <a href="{{ '/' | relative_url }}" class="back-link">&#8592; Back to Catalog</a>
+    {% assign sorted_all = site.globs | sort: 'Name' %}
+    {% assign prev_entry = nil %}
+    {% assign next_entry = nil %}
+    {% assign found = false %}
+    {% for g in sorted_all %}
+      {% if found %}{% assign next_entry = g %}{% break %}{% endif %}
+      {% if g.url == page.url %}{% assign found = true %}{% else %}{% assign prev_entry = g %}{% endif %}
+    {% endfor %}
+    <div class="entry-nav-sides">
+      {% if prev_entry %}
+      <a href="{{ prev_entry.url | relative_url }}" class="nav-entry prev-entry">
+        <span class="nav-entry-dir">&#8592; Previous</span>
+        <span class="nav-entry-name">{{ prev_entry.Name }}</span>
+      </a>
+      {% else %}<div></div>{% endif %}
+
+      <a href="{{ '/' | relative_url }}" class="back-link">Catalog</a>
+
+      {% if next_entry %}
+      <a href="{{ next_entry.url | relative_url }}" class="nav-entry next-entry">
+        <span class="nav-entry-dir">Next &#8594;</span>
+        <span class="nav-entry-name">{{ next_entry.Name }}</span>
+      </a>
+      {% else %}<div></div>{% endif %}
+    </div>
   </div>
 </div>
 

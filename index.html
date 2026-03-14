@@ -16,11 +16,18 @@ use_search: true
     </div>
     <h1 class="hero-title">LOLGlobs</h1>
     <p class="hero-tagline">Process execution through wildcard pattern evasion</p>
-    <p class="hero-sub">A catalog of glob-based command obfuscation for Linux &middot; macOS &middot; Windows CMD &middot; PowerShell</p>
+    <div class="hero-stats">
+      <span>{{ site.globs | size }} entries</span>
+      <span class="stat-sep">·</span>
+      <span>4 platforms</span>
+      <span class="stat-sep">·</span>
+      <span>{{ site.data.categories | size }} categories</span>
+    </div>
   </div>
 </div>
 
 <div class="catalog-section">
+  <div class="sticky-filters">
   <div class="search-wrap">
     <div class="search-bar-row">
       <svg class="search-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
@@ -58,6 +65,7 @@ use_search: true
   <div class="results-meta">
     <span id="results-count" class="results-count"></span>
   </div>
+  </div><!-- /.sticky-filters -->
 
   <div class="table-wrap">
     <table class="catalog-table" id="catalog-table">
@@ -65,7 +73,7 @@ use_search: true
         <tr>
           <th class="col-name">Command</th>
           <th class="col-platform">Platform</th>
-          <th class="col-patterns">Patterns</th>
+          <th class="col-patterns">Wildcards</th>
           <th class="col-category">Category</th>
           <th class="col-mitre">MITRE</th>
         </tr>
@@ -94,7 +102,9 @@ use_search: true
             </span>
           </td>
           <td class="col-patterns">
-            <span class="pattern-count">{{ entry.Patterns | size }}</span>
+            {% assign wc_seen = "" %}
+            {% for p in entry.Patterns %}{% for wc in p.Wildcards %}{% assign wc_key = wc | append: "|" %}{% unless wc_seen contains wc_key %}{% assign wc_seen = wc_seen | append: wc_key %}{% endunless %}{% endfor %}{% endfor %}
+            <div class="wc-pills">{% assign wc_arr = wc_seen | split: "|" %}{% for wc in wc_arr %}{% unless wc == "" %}<span class="wc-pill">{{ wc }}</span>{% endunless %}{% endfor %}</div>
           </td>
           <td class="col-category">
             <span class="badge category-badge">{{ entry.Category }}</span>
