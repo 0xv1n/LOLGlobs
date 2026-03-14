@@ -12,6 +12,44 @@
 
   var state = { query: '', platform: 'all', category: 'all' };
 
+  // Augment entries with display element references + original text snapshots
+  window.LOLGLOB_ENTRIES.forEach(function (entry) {
+    entry.nameEl  = entry.el.querySelector('.entry-link');
+    entry.descEl  = entry.el.querySelector('.col-desc-text');
+    entry.nameOrig = entry.nameEl  ? entry.nameEl.textContent  : '';
+    entry.descOrig = entry.descEl  ? entry.descEl.textContent  : '';
+  });
+
+  // ---- Highlight helpers ----
+  function escHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function highlightText(original, query) {
+    if (!query || !original) return escHtml(original || '');
+    var escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var re = new RegExp('(' + escaped + ')', 'gi');
+    return escHtml(original).replace(re, '<mark class="search-hl">$1</mark>');
+  }
+
+  function applyHighlights(entry, text) {
+    if (entry.nameEl && entry.nameOrig !== undefined)
+      entry.nameEl.innerHTML = highlightText(entry.nameOrig, text);
+    if (entry.descEl && entry.descOrig !== undefined)
+      entry.descEl.innerHTML = highlightText(entry.descOrig, text);
+  }
+
+  function clearHighlights(entry) {
+    if (entry.nameEl && entry.nameOrig !== undefined)
+      entry.nameEl.textContent = entry.nameOrig;
+    if (entry.descEl && entry.descOrig !== undefined)
+      entry.descEl.textContent = entry.descOrig;
+  }
+
+  // ---- Platform / chip helpers ----
   function setActivePlatformTab(platform) {
     platformTabs.forEach(function (t) {
       var active = t.dataset.platform === platform;
@@ -56,6 +94,7 @@
     var activePlatform = parsed.platform || state.platform;
     var activeCategory = parsed.category || state.category;
     var text = parsed.text;
+    var isMitre = text && /^t\d/i.test(text);
 
     // Sync UI if prefix changed state
     if (parsed.platform) setActivePlatformTab(parsed.platform);
@@ -72,7 +111,6 @@
       if (activeCategory !== 'all' && entry.category !== activeCategory) show = false;
 
       if (show && text) {
-        var isMitre = /^t\d/i.test(text);
         if (isMitre) {
           show = entry.mitre.toLowerCase().indexOf(text) !== -1;
         } else {
@@ -84,6 +122,13 @@
 
       entry.el.style.display = show ? '' : 'none';
       if (show) visible++;
+
+      // Highlighting: only on visible rows with a non-MITRE text query
+      if (text && !isMitre && show) {
+        applyHighlights(entry, text);
+      } else {
+        clearHighlights(entry);
+      }
     });
 
     if (visible === total && !text && activePlatform === 'all' && activeCategory === 'all') {
@@ -107,7 +152,6 @@
     tab.addEventListener('click', function () {
       setActivePlatformTab(tab.dataset.platform);
       state.platform = tab.dataset.platform;
-      // Clear @prefix from search if present
       if (searchInput.value.startsWith('@')) searchInput.value = '';
       filter();
     });
@@ -117,7 +161,6 @@
     chip.addEventListener('click', function () {
       setActiveChip(chip.dataset.category);
       state.category = chip.dataset.category;
-      // Clear /prefix from search if present
       if (searchInput.value.startsWith('/')) searchInput.value = '';
       filter();
     });

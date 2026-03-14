@@ -12,5 +12,114 @@
   {% if page.use_search %}
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
   {% endif %}
+
+  <!-- Command Palette (Ctrl+K / Cmd+K) -->
+  <div class="cmd-palette-overlay" id="cmd-palette" hidden>
+    <div class="cmd-palette">
+      <div class="cmd-palette-header">
+        <svg class="cmd-palette-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
+        </svg>
+        <input type="text" class="cmd-palette-input" id="cmd-palette-input" placeholder="Jump to a command..." autocomplete="off" spellcheck="false">
+        <kbd class="cmd-palette-esc">ESC</kbd>
+      </div>
+      <div class="cmd-palette-results" id="cmd-palette-results"></div>
+      <div class="cmd-palette-footer">
+        <span><kbd>↑↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> open</span>
+        <span><kbd>esc</kbd> close</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  window.LOLGLOB_ALL=[{% assign sorted_all=site.globs | sort:'Name' %}{% for e in sorted_all %}{n:{{ e.Name | jsonify }},p:"{{ e.Platform }}",c:"{{ e.Category }}",u:"{{ e.url | relative_url }}",d:{{ e.Description | strip_html | truncate: 60 | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}];
+  </script>
+
+  <script>
+  (function() {
+    var overlay = document.getElementById('cmd-palette');
+    var input   = document.getElementById('cmd-palette-input');
+    var results = document.getElementById('cmd-palette-results');
+    if (!overlay || !input || !results || !window.LOLGLOB_ALL) return;
+
+    var entries = window.LOLGLOB_ALL;
+    var activeIdx = 0;
+    var filtered = [];
+
+    var platLabels = {
+      'linux':'Linux','macos':'macOS',
+      'windows-cmd':'Windows CMD','powershell':'PowerShell'
+    };
+
+    function render(query) {
+      var q = (query || '').toLowerCase();
+      filtered = entries.filter(function(e) {
+        if (!q) return true;
+        return e.n.toLowerCase().indexOf(q) !== -1 ||
+               e.d.toLowerCase().indexOf(q) !== -1 ||
+               e.p.indexOf(q) !== -1 ||
+               e.c.toLowerCase().indexOf(q) !== -1;
+      }).slice(0, 9);
+      activeIdx = 0;
+
+      if (!filtered.length) {
+        results.innerHTML = '<div class="cmd-palette-empty">No commands found</div>';
+        return;
+      }
+
+      results.innerHTML = filtered.map(function(e, i) {
+        return '<a href="' + e.u + '" class="cmd-palette-item' + (i === 0 ? ' active' : '') + '">' +
+          '<div class="cmd-palette-item-top">' +
+            '<span class="cmd-palette-name">' + e.n + '</span>' +
+            '<span class="badge platform-badge platform-' + e.p + '">' + (platLabels[e.p] || e.p) + '</span>' +
+          '</div>' +
+          '<div class="cmd-palette-item-desc">' + e.d + '</div>' +
+        '</a>';
+      }).join('');
+    }
+
+    function setActive(i) {
+      var items = results.querySelectorAll('.cmd-palette-item');
+      items.forEach(function(el, j) { el.classList.toggle('active', j === i); });
+      activeIdx = i;
+      if (items[i]) items[i].scrollIntoView({ block: 'nearest' });
+    }
+
+    function open() {
+      overlay.hidden = false;
+      input.value = '';
+      render('');
+      requestAnimationFrame(function() {
+        overlay.classList.add('is-open');
+        input.focus();
+      });
+    }
+
+    function close() {
+      overlay.classList.remove('is-open');
+      setTimeout(function() { overlay.hidden = true; }, 180);
+    }
+
+    function go() {
+      if (filtered[activeIdx]) window.location.href = filtered[activeIdx].u;
+    }
+
+    input.addEventListener('input', function() { render(input.value); });
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+
+    document.addEventListener('keydown', function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        overlay.hidden ? open() : close();
+      }
+      if (overlay.hidden) return;
+      if (e.key === 'Escape') { close(); e.preventDefault(); }
+      if (e.key === 'ArrowDown') { e.preventDefault(); setActive(Math.min(activeIdx + 1, filtered.length - 1)); }
+      if (e.key === 'ArrowUp')   { e.preventDefault(); setActive(Math.max(activeIdx - 1, 0)); }
+      if (e.key === 'Enter')     { e.preventDefault(); go(); }
+    });
+  })();
+  </script>
 </body>
 </html>

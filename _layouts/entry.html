@@ -2,6 +2,14 @@
 layout: default
 ---
 <div class="entry-page">
+  <nav class="entry-breadcrumb" aria-label="Breadcrumb">
+    <a href="{{ '/' | relative_url }}">Catalog</a>
+    <span class="entry-breadcrumb-sep">/</span>
+    <span class="entry-breadcrumb-current">{% case page.Platform %}{% when 'linux' %}Linux{% when 'macos' %}macOS{% when 'windows-cmd' %}Windows CMD{% when 'powershell' %}PowerShell{% else %}{{ page.Platform }}{% endcase %}</span>
+    <span class="entry-breadcrumb-sep">/</span>
+    <span class="entry-breadcrumb-current">{{ page.Name }}</span>
+  </nav>
+
   <div class="entry-header">
     <div class="entry-title-row">
       <h1 class="entry-name">{{ page.Name }}</h1>
@@ -42,7 +50,6 @@ layout: default
           <thead>
             <tr>
               <th>Pattern</th>
-              <th>Wildcards</th>
               <th>Notes</th>
             </tr>
           </thead>
@@ -59,11 +66,6 @@ layout: default
                   </button>
                 </div>
               </td>
-              <td class="wildcards-cell">
-                {% for wc in p.Wildcards %}
-                <span class="wildcard-badge">{{ wc }}</span>
-                {% endfor %}
-              </td>
               <td class="notes-cell">{{ p.Notes }}</td>
             </tr>
             {% endfor %}
@@ -72,8 +74,22 @@ layout: default
       </div>
     </section>
 
+    <section class="entry-section pattern-tester-section">
+      <h2>Pattern Tester</h2>
+      <div class="pattern-tester">
+        <div class="tester-input-wrap">
+          <span class="tester-prompt">$</span>
+          <input type="text" class="tester-input" id="pattern-tester-input"
+                 placeholder="Type a command to test against patterns..."
+                 autocomplete="off" spellcheck="false">
+          <span class="tester-count" id="tester-count"></span>
+        </div>
+        <p class="tester-hint" id="tester-hint">Try typing <code>{{ page.Name }}</code> or a full path like <code>{{ page.BinaryPath | first }}</code></p>
+      </div>
+    </section>
+
     {% if page.PlatformNotes %}
-    <section class="entry-section platform-notes-section">
+    <section class="entry-section platform-notes-section" data-platform="{{ page.Platform }}">
       <h2>Platform Notes</h2>
       <div class="platform-notes-content">{{ page.PlatformNotes | markdownify }}</div>
     </section>
@@ -84,7 +100,11 @@ layout: default
       <h2>Resources</h2>
       <ul class="resources-list">
         {% for url in page.Resources %}
-        <li><a href="{{ url }}" target="_blank" rel="noopener">{{ url }}</a></li>
+        {% assign url_stripped = url | remove: 'https://' | remove: 'http://' %}
+        {% assign url_parts = url_stripped | split: '/' %}
+        {% assign res_domain = url_parts[0] %}
+        {% assign res_path = url_stripped | remove_first: res_domain %}
+        <li><a href="{{ url }}" target="_blank" rel="noopener"><span class="res-domain">{{ res_domain }}</span>{% if res_path != '' and res_path != '/' %}<span class="res-path">{{ res_path | truncate: 48 }}</span>{% endif %}</a></li>
         {% endfor %}
       </ul>
     </section>
@@ -140,8 +160,133 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     navigator.clipboard.writeText(btn.dataset.copy).then(() => {
       btn.classList.add('copied');
-      setTimeout(() => btn.classList.remove('copied'), 1500);
+
+      // Float a "Copied!" toast above the button
+      var rect = btn.getBoundingClientRect();
+      var toast = document.createElement('span');
+      toast.className = 'copy-toast';
+      toast.textContent = 'Copied!';
+      toast.style.position = 'fixed';
+      toast.style.left = (rect.left + rect.width / 2) + 'px';
+      toast.style.top  = (rect.top - 6) + 'px';
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        toast.remove();
+      }, 850);
     });
   });
+});
+
+// ---- Pattern Tester ----
+(function() {
+  var input = document.getElementById('pattern-tester-input');
+  var countEl = document.getElementById('tester-count');
+  var hintEl = document.getElementById('tester-hint');
+  if (!input) return;
+
+  // Collect pattern rows and their raw pattern strings
+  var rows = [];
+  document.querySelectorAll('.patterns-table tbody tr').forEach(function(tr) {
+    var btn = tr.querySelector('.copy-btn');
+    if (!btn) return;
+    // Add match indicator element to the row
+    var indicator = document.createElement('span');
+    indicator.className = 'tester-indicator';
+    tr.querySelector('.pattern-cell').appendChild(indicator);
+    rows.push({ tr: tr, pattern: btn.dataset.copy, indicator: indicator });
+  });
+
+  // Convert a glob pattern string to a RegExp
+  function globToRegex(glob) {
+    var i = 0, len = glob.length, re = '';
+    while (i < len) {
+      var c = glob[i];
+      if (c === '*') {
+        re += '.*';
+      } else if (c === '?') {
+        re += '.';
+      } else if (c === '[') {
+        var j = i + 1;
+        // Handle negation
+        if (j < len && (glob[j] === '!' || glob[j] === '^')) {
+          re += '[^';
+          j++;
+        } else {
+          re += '[';
+        }
+        // Collect until ]
+        while (j < len && glob[j] !== ']') {
+          re += glob[j] === '\\' ? '\\\\' : glob[j];
+          j++;
+        }
+        re += ']';
+        i = j; // skip past ]
+      } else if (c === '{') {
+        // Brace expansion: {a,b} -> (a|b)
+        re += '(';
+        i++;
+        while (i < len && glob[i] !== '}') {
+          re += glob[i] === ',' ? '|' : escRegex(glob[i]);
+          i++;
+        }
+        re += ')';
+      } else {
+        re += escRegex(c);
+      }
+      i++;
+    }
+    return new RegExp('^' + re + '$');
+  }
+
+  function escRegex(c) {
+    return c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function test() {
+    var val = input.value;
+    if (!val) {
+      // Reset all
+      rows.forEach(function(r) {
+        r.tr.classList.remove('tester-match', 'tester-miss');
+        r.indicator.textContent = '';
+        r.indicator.className = 'tester-indicator';
+      });
+      countEl.textContent = '';
+      hintEl.style.display = '';
+      return;
+    }
+
+    hintEl.style.display = 'none';
+    var matches = 0;
+    rows.forEach(function(r) {
+      var isMatch = false;
+      try {
+        isMatch = globToRegex(r.pattern).test(val);
+      } catch(e) {
+        // If pattern can't be parsed as glob, try literal substring
+        isMatch = r.pattern === val;
+      }
+      r.tr.classList.toggle('tester-match', isMatch);
+      r.tr.classList.toggle('tester-miss', !isMatch);
+      r.indicator.textContent = isMatch ? 'MATCH' : 'MISS';
+      r.indicator.className = 'tester-indicator ' + (isMatch ? 'indicator-match' : 'indicator-miss');
+      if (isMatch) matches++;
+    });
+    countEl.textContent = matches + '/' + rows.length;
+    countEl.className = 'tester-count ' + (matches > 0 ? 'has-matches' : '');
+  }
+
+  input.addEventListener('input', test);
+})();
+
+// Keyboard navigation: [ and ] or ArrowLeft / ArrowRight
+document.addEventListener('keydown', function(e) {
+  if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+  var prev = document.querySelector('.prev-entry');
+  var next = document.querySelector('.next-entry');
+  if ((e.key === 'ArrowLeft'  || e.key === '[') && prev) window.location = prev.href;
+  if ((e.key === 'ArrowRight' || e.key === ']') && next) window.location = next.href;
 });
 </script>

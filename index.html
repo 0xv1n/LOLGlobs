@@ -17,8 +17,6 @@ use_search: true
     <h1 class="hero-title">LOLGlobs</h1>
     <p class="hero-tagline">Process execution through wildcard pattern evasion</p>
     <div class="hero-stats">
-      <span>{{ site.globs | size }} entries</span>
-      <span class="stat-sep">·</span>
       <span>4 platforms</span>
       <span class="stat-sep">·</span>
       <span>{{ site.data.categories | size }} categories</span>
@@ -72,6 +70,7 @@ use_search: true
       <thead>
         <tr>
           <th class="col-name">Command</th>
+          <th class="col-desc">Description</th>
           <th class="col-platform">Platform</th>
           <th class="col-patterns">Wildcards</th>
           <th class="col-category">Category</th>
@@ -90,6 +89,9 @@ use_search: true
             onclick="window.location='{{ entry.url | relative_url }}'">
           <td class="col-name">
             <a href="{{ entry.url | relative_url }}" class="entry-link" onclick="event.stopPropagation()">{{ entry.Name }}</a>
+          </td>
+          <td class="col-desc">
+            <span class="col-desc-text">{{ entry.Description | strip_html | truncate: 80 }}</span>
           </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-{{ entry.Platform }}">
@@ -134,4 +136,15 @@ window.LOLGLOB_ENTRIES = Array.from(document.querySelectorAll('#catalog-tbody .e
   mitre: row.dataset.mitre || '',
   desc: row.dataset.desc
 }));
+
+// Sticky filter bar scroll shadow
+(function() {
+  var filters = document.querySelector('.sticky-filters');
+  var hero = document.querySelector('.hero');
+  if (!filters || !hero) return;
+  var observer = new IntersectionObserver(function(entries) {
+    filters.classList.toggle('is-scrolled', !entries[0].isIntersecting);
+  }, { threshold: 0 });
+  observer.observe(hero);
+})();
 </script>
