@@ -16,11 +16,16 @@ use_search: true
     </div>
     <h1 class="hero-title">LOLGlobs</h1>
     <p class="hero-tagline">Process execution through wildcard pattern evasion</p>
-    <p class="hero-sub">A catalog of glob-based command obfuscation for Linux &middot; macOS &middot; Windows CMD &middot; PowerShell</p>
+    <div class="hero-stats">
+      <span>4 platforms</span>
+      <span class="stat-sep">·</span>
+      <span>{{ site.data.categories | size }} categories</span>
+    </div>
   </div>
 </div>
 
 <div class="catalog-section">
+  <div class="sticky-filters">
   <div class="search-wrap">
     <div class="search-bar-row">
       <svg class="search-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
@@ -58,14 +63,16 @@ use_search: true
   <div class="results-meta">
     <span id="results-count" class="results-count"></span>
   </div>
+  </div><!-- /.sticky-filters -->
 
   <div class="table-wrap">
     <table class="catalog-table" id="catalog-table">
       <thead>
         <tr>
           <th class="col-name">Command</th>
+          <th class="col-desc">Description</th>
           <th class="col-platform">Platform</th>
-          <th class="col-patterns">Patterns</th>
+          <th class="col-patterns">Wildcards</th>
           <th class="col-category">Category</th>
           <th class="col-mitre">MITRE</th>
         </tr>
@@ -83,6 +90,9 @@ use_search: true
           <td class="col-name">
             <a href="{{ entry.url | relative_url }}" class="entry-link" onclick="event.stopPropagation()">{{ entry.Name }}</a>
           </td>
+          <td class="col-desc">
+            <span class="col-desc-text">{{ entry.Description | strip_html | truncate: 80 }}</span>
+          </td>
           <td class="col-platform">
             <span class="badge platform-badge platform-{{ entry.Platform }}">
               {% case entry.Platform %}
@@ -94,7 +104,9 @@ use_search: true
             </span>
           </td>
           <td class="col-patterns">
-            <span class="pattern-count">{{ entry.Patterns | size }}</span>
+            {% assign wc_seen = "" %}
+            {% for p in entry.Patterns %}{% for wc in p.Wildcards %}{% assign wc_key = wc | append: "|" %}{% unless wc_seen contains wc_key %}{% assign wc_seen = wc_seen | append: wc_key %}{% endunless %}{% endfor %}{% endfor %}
+            <div class="wc-pills">{% assign wc_arr = wc_seen | split: "|" %}{% for wc in wc_arr %}{% unless wc == "" %}<span class="wc-pill">{{ wc }}</span>{% endunless %}{% endfor %}</div>
           </td>
           <td class="col-category">
             <span class="badge category-badge">{{ entry.Category }}</span>
@@ -124,4 +136,15 @@ window.LOLGLOB_ENTRIES = Array.from(document.querySelectorAll('#catalog-tbody .e
   mitre: row.dataset.mitre || '',
   desc: row.dataset.desc
 }));
+
+// Sticky filter bar scroll shadow
+(function() {
+  var filters = document.querySelector('.sticky-filters');
+  var hero = document.querySelector('.hero');
+  if (!filters || !hero) return;
+  var observer = new IntersectionObserver(function(entries) {
+    filters.classList.toggle('is-scrolled', !entries[0].isIntersecting);
+  }, { threshold: 0 });
+  observer.observe(hero);
+})();
 </script>
